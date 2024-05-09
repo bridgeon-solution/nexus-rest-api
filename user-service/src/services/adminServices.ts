@@ -1,3 +1,4 @@
+
 import { PrismaClient } from "@prisma/client"
 import { Admin } from "../models/adminInterface"
 import bcrypt from 'bcrypt'

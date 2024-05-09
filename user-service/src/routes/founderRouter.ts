@@ -1,5 +1,5 @@
 import exp from 'express';
-import { founderController } from '../controllers/founderControllers';
+import { founderController } from '../controllers/founder/founderControllers';
 import { founderProfileimgUpload } from '../middlewares/founderImage';
 
 export const FounderRouter = exp.Router();

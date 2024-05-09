@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { founderSrvc } from "../services/founderServices";
-import { FounderSignup } from "../models/founderInterface";
+import { founderSrvc } from "../../services/founderServices";
+import { FounderSignup } from "../../models/founderInterface";
 
 const founderSignup = async (req: Request, res: Response) => {
     const signupValues: FounderSignup = req.body;
