@@ -17,8 +17,7 @@ const adminLogin = async (req: Request, res: Response) => {
       if (adminlogin) {
         res.status(200).json({
           status: "success",
-          token: token,
-          data: adminlogin
+          token: token
         })
       }
     }
