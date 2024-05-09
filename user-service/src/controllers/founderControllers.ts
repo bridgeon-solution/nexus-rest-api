@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { FounderByIdSrvc, founderSrvc } from "../services/founderServices";
+import { founderSrvc } from "../services/founderServices";
 import { FounderSignup } from "../models/founderInterface";
 
 const founderSignup = async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ const updateFounder = async (req: Request, res: Response) => {
         })
     }
 }
-const FoundersById = async (req: Request, res: Response) => {
+const foundersById = async (req: Request, res: Response) => {
     const founderId: string = req.params.id;
     const data = await founderSrvc.FounderByIdSrvc(founderId);
     if (data) {
@@ -65,7 +65,7 @@ const deleteFounder = async (req: Request, res: Response) => {
 export const founderController = {
     founderSignup,
     getAllFounders,
-    FoundersById,
+    foundersById,
     updateFounder,
     deleteFounder
 }
