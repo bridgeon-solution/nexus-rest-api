@@ -1,14 +1,12 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt';
 import { FounderSignup } from "../models/founderInterface";
+import hashPassword from "../../../common/utils/hashPassword";
 const prisma = new PrismaClient();
 
-async function hashPassword(password: string): Promise<string> {
-    const salt = await bcrypt.genSalt(10); // Adjust salt rounds as needed
-    return await bcrypt.hash(password, salt);
-}
 
-export const founderSignupSrvc = async (signupValues: FounderSignup): Promise<boolean> => {
+
+const founderSignupSrvc = async (signupValues: FounderSignup): Promise<boolean> => {
     signupValues.password = await hashPassword(signupValues.password);
     const allDbs = await prisma.founders.create({ data: signupValues });
     if (allDbs) {
@@ -18,12 +16,12 @@ export const founderSignupSrvc = async (signupValues: FounderSignup): Promise<bo
     }
 }
 
-export const getAllFoundersSrvc = async (): Promise<FounderSignup[]> => {
+const getAllFoundersSrvc = async (): Promise<FounderSignup[]> => {
     const founders = await prisma.founders.findMany();
     return founders
 }
 
-export const FounderByIdSrvc = async (founderId: string): Promise<FounderSignup | boolean> => {
+const FounderByIdSrvc = async (founderId: string): Promise<FounderSignup | boolean> => {
     const id: number = Number(founderId)
     const founder = await prisma.founders.findUnique({ where: { id } });
     if (founder) {
@@ -33,7 +31,7 @@ export const FounderByIdSrvc = async (founderId: string): Promise<FounderSignup 
     }
 }
 
-export const updateFounderSrvc = async (data: FounderSignup, founderId: string): Promise<FounderSignup | boolean> => {
+const updateFounderSrvc = async (data: FounderSignup, founderId: string): Promise<FounderSignup | boolean> => {
     const id: number = Number(founderId);
     const updateFounder = await prisma.founders.update({
         where: { id },
@@ -46,7 +44,7 @@ export const updateFounderSrvc = async (data: FounderSignup, founderId: string):
     }
 
 }
-export const deleteFounderSrvc = async (founderId: string):Promise<boolean> => {
+const deleteFounderSrvc = async (founderId: string): Promise<boolean> => {
     const id: number = Number(founderId);
     try {
         const deleteFounder = await prisma.founders.delete({ where: { id } });

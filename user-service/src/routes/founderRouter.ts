@@ -1,13 +1,15 @@
 import exp from 'express';
-import { founderController } from '../controllers/founderControllers';
+import { founderController } from '../controllers/founder/founderControllers';
 import { founderProfileimgUpload } from '../middlewares/founderImage';
 
-export const router = exp.Router();
+export const FounderRouter = exp.Router();
 
 
-router.post('/signup', founderProfileimgUpload, founderController.founderSignup)
-    .get('/founders', founderController.getAllFounders)
-    .get('/founders/:id', founderController.FoundersById)
-    .put('/founders/:id', founderProfileimgUpload, founderController.updateFounder)
-    .delete('/founders/:id', founderController.deleteFounder)
+FounderRouter.post('/signup', founderProfileimgUpload, founderController.founderSignup)
+FounderRouter.get('/founders', founderController.getAllFounders)
+FounderRouter.get('/founders/:id', founderController.foundersById)
+FounderRouter.put('/founders/:id', founderProfileimgUpload, founderController.updateFounder)
+FounderRouter.delete('/founders/:id', founderController.deleteFounder)
+
+
 
