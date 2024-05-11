@@ -2,17 +2,23 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt';
 import { FounderSignup } from "../models/founderInterface";
 import hashPassword from "../../../common/utils/hashPassword";
+import founderPaymnet from "../utils/payment";
 const prisma = new PrismaClient();
 
 
 
 const founderSignupSrvc = async (signupValues: FounderSignup): Promise<boolean> => {
-    signupValues.password = await hashPassword(signupValues.password);
-    const allDbs = await prisma.founders.create({ data: signupValues });
-    if (allDbs) {
-        return true
-    } else {
-        return false
+    try {
+        signupValues.password = await hashPassword(signupValues.password);
+        const allDbs = await prisma.founders.create({ data: signupValues });
+        if (allDbs) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.log(error);
+        return false;
     }
 }
 
@@ -44,6 +50,7 @@ const updateFounderSrvc = async (data: FounderSignup, founderId: string): Promis
     }
 
 }
+
 const deleteFounderSrvc = async (founderId: string): Promise<boolean> => {
     const id: number = Number(founderId);
     try {
@@ -56,10 +63,29 @@ const deleteFounderSrvc = async (founderId: string): Promise<boolean> => {
 
 }
 
+const paymentFounderSrvc = async (fEmail: string,amount:number) => {
+    try {
+        const founderFinding = await prisma.founders.findUnique({ where: { email:fEmail } });
+        
+        if (founderFinding) {
+            const paymentValidation = founderPaymnet(amount, fEmail);
+            if (paymentValidation) {
+                return paymentValidation
+            }
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 export const founderSrvc = {
     founderSignupSrvc,
     getAllFoundersSrvc,
     FounderByIdSrvc,
     updateFounderSrvc,
-    deleteFounderSrvc
+    deleteFounderSrvc,
+    paymentFounderSrvc
 } 

@@ -10,6 +10,7 @@ FounderRouter.get('/founders', founderController.getAllFounders)
 FounderRouter.get('/founders/:id', founderController.foundersById)
 FounderRouter.put('/founders/:id', founderProfileimgUpload, founderController.updateFounder)
 FounderRouter.delete('/founders/:id', founderController.deleteFounder)
+FounderRouter.post('/payment-founders/:id', founderController.paymentFounder)
 
 
 
