@@ -12,13 +12,16 @@ const founderSignup = async (req: Request, res: Response) => {
                 datas: data
             })
         } else {
-            throw new Error("an Error occured")
+            res.status(404).json({
+                message: 'Something wend wrong',
+            })
         }
     } catch (error) {
         console.log(error)
     }
 
 }
+
 const getAllFounders = async (req: Request, res: Response) => {
     try {
         const data = await founderSrvc.getAllFoundersSrvc();
@@ -33,6 +36,7 @@ const getAllFounders = async (req: Request, res: Response) => {
         throw new Error(error)
     }
 }
+
 const updateFounder = async (req: Request, res: Response) => {
     try {
         const founderId: string = req.params.id;
@@ -83,10 +87,31 @@ const deleteFounder = async (req: Request, res: Response) => {
         throw new Error(error)
     }
 }
+
+const paymentFounder = async (req: Request, res: Response) => {
+    const founderEmail: string = req.params.id;
+    const amount:number = req.body.amount;
+    try {
+        const data = await founderSrvc.paymentFounderSrvc(founderEmail,amount);
+        if (data) {
+            res.status(200).json({
+                message: 'success',
+                data
+            })
+        } else {
+            res.status(404).json({
+                message: 'Failed'
+            })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const founderController = {
     founderSignup,
     getAllFounders,
     foundersById,
     updateFounder,
-    deleteFounder
+    deleteFounder,
+    paymentFounder
 }

@@ -4,15 +4,16 @@ generator client {
 
 datasource db {
     provider = "mysql"
-    url      = env("DATABASE_URL")
+    url = env("DATABASE_URL")
 }
 
 model founders {
     id          Int      @id @default(autoincrement())
-    fullname    String   @unique
+    fullname    String
     email       String   @unique
     companyname String
     image       String
+    ispaid      Boolean  @default(false)
     password    String
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt

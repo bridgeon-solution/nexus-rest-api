@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from "express";
 import * as dotenv from "dotenv";
 import path from "path";
 
-dotenv.config({path: path.join(__dirname, '../.env')});
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const storage = multer.diskStorage({
     destination: '../../src/uploads',
@@ -29,7 +29,7 @@ cloudin.config({
 });
 
 export const founderProfileimgUpload = async (req: Request, res: Response, next: NextFunction) => {
-    upload.single("profileimage")(req, res, async (err) => {
+    upload.single("image")(req, res, async (err) => {
         // const file = req.file;
         // console.log(req.file);
         if (err) {
