@@ -1,5 +1,4 @@
 import express, { Express } from 'express';
-import cors from 'cors'
 import { FounderRouter } from './routes/founderRouter';
 import adminRouter from './routes/adminRouter';
 import errorHandler from '../../common/middlewares/globalErrorHandler'

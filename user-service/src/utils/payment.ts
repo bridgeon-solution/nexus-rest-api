@@ -4,8 +4,7 @@ import Stripe from "stripe"
 const prisma = new PrismaClient();
 
 
-export const founderPaymnet = async (amount: number, email:string) => {
-    
+export const founderPaymnet = async (amount: number, email: string) => {
     const stripeConfig = new Stripe(process.env.STRIPE_KEY);
     try {
         const stripe = await stripeConfig.checkout.sessions.create({
@@ -17,7 +16,7 @@ export const founderPaymnet = async (amount: number, email:string) => {
                     product_data: {
                         name: 'Subscription payment'
                     },
-                    unit_amount: amount*100
+                    unit_amount: amount * 100
                 },
                 quantity: 1
             }
