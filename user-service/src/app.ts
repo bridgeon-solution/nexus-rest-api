@@ -1,7 +1,8 @@
 import express, { Express } from 'express';
 import { FounderRouter } from './routes/founderRouter';
 import adminRouter from './routes/adminRouter';
-import errorHandler from '../../common/middlewares/globalErrorHandler'
+import errorHandler from '../../common/middlewares/globalErrorHandler';
+import cors from "cors";
 
 const app: Express = express();
 

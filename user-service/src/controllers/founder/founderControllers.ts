@@ -76,12 +76,16 @@ const deleteFounder = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.id;
         const data = await founderSrvc.deleteFounderSrvc(id);
+        console.log(data);
+        
         if (data) {
-            res.status(204).json({
+            res.status(200).json({
                 message: 'Successfully deleted'
             })
         } else {
-            throw new Error("error deleting user")
+            res.status(404).json({
+                message: 'Error deleting user'
+            })
         }
     } catch (error) {
         throw new Error(error)
