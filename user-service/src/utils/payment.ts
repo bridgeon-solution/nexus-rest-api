@@ -21,7 +21,7 @@ export const founderPaymnet = async (amount: number, email: string) => {
                 quantity: 1
             }
             ],
-            success_url: 'http://localhost:4200/payment'
+            success_url: 'http://localhost:4200/login'
         })
         if (stripe.url) {
             // const founderPayment = await prisma.founders.update({

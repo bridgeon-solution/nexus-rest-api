@@ -54,8 +54,14 @@ const updateFounderSrvc = async (data: FounderSignup, founderId: string): Promis
 const deleteFounderSrvc = async (founderId: string): Promise<boolean> => {
     const id: number = Number(founderId);
     try {
-        const deleteFounder = await prisma.founders.delete({ where: { id } });
-        return true;
+        const founderFinding = await prisma.founders.findUnique({where:{id}});
+        console.log(founderFinding);
+        if (founderFinding) {
+            const deleteFounder = await prisma.founders.delete({ where: { id } });
+            return true;
+        } else {
+            return false;
+        }
     } catch (error) {
         console.log(error);
         return false;
