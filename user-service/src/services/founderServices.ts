@@ -63,10 +63,10 @@ const deleteFounderSrvc = async (founderId: string): Promise<boolean> => {
 
 }
 
-const paymentFounderSrvc = async (fEmail: string,amount:number) => {
+const paymentFounderSrvc = async (fEmail: string, amount: number) => {
     try {
-        const founderFinding = await prisma.founders.findUnique({ where: { email:fEmail } });
-        
+        const founderFinding = await prisma.founders.findUnique({ where: { email: fEmail } });
+
         if (founderFinding) {
             const paymentValidation = founderPaymnet(amount, fEmail);
             if (paymentValidation) {

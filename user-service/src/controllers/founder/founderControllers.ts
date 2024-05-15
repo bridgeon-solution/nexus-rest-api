@@ -90,9 +90,9 @@ const deleteFounder = async (req: Request, res: Response) => {
 
 const paymentFounder = async (req: Request, res: Response) => {
     const founderEmail: string = req.params.id;
-    const amount:number = req.body.amount;
+    const amount: number = req.body.amount;
     try {
-        const data = await founderSrvc.paymentFounderSrvc(founderEmail,amount);
+        const data = await founderSrvc.paymentFounderSrvc(founderEmail, amount);
         if (data) {
             res.status(200).json({
                 message: 'success',
