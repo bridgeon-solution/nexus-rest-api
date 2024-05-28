@@ -1,9 +1,7 @@
 import { Department } from "../../entities/entityInterfaces/Department.interface"
-import { DepartmentRepository } from "../../respositories/departmentRepository"
+import departmentRepository from "../../respositories/departmentRepository";
 
-const departmentRepository = new DepartmentRepository()
-
-export class CreateDepartment {
+class CreateDepartment {
   constructor() {
   }
   async createDepartment(departmentData: Department): Promise<Department> {
@@ -11,3 +9,6 @@ export class CreateDepartment {
     return department
   }
 }
+
+
+export default new CreateDepartment()

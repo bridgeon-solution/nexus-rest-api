@@ -1,4 +1,5 @@
-interface Department {
+
+export interface Department {
   status?: string
   data?: {
     id?: number,
@@ -6,4 +7,7 @@ interface Department {
   }
 }
 
-export default Department
+export interface UpdateDepartments {
+  departmentId: string,
+  departmentData: any
+}

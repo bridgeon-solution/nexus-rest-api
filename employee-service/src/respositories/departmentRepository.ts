@@ -1,9 +1,9 @@
 import Prisma, { PrismaClient } from '@prisma/client'
-import { Department } from '../entities/entityInterfaces/Department.interface'
+import { Department, UpdateDepartments } from '../entities/entityInterfaces/Department.interface'
 
 
 const prisma = new PrismaClient()
-export class DepartmentRepository {
+class DepartmentRepository {
   async createDepartment(department: Department) {
     const createDepartment = await prisma.department.create({
       data: department
@@ -30,7 +30,7 @@ export class DepartmentRepository {
   }
 
   async deleteDepartment(departmentId: number) {
-    const departmentExist = await prisma.department.findUnique({
+    const departmentExist: Department | null = await prisma.department.findUnique({
       where: { id: departmentId }
     })
     if (!departmentExist) {
@@ -41,4 +41,19 @@ export class DepartmentRepository {
     })
     return deletedDepartment
   }
+
+  async updateDepartment(updateData: UpdateDepartments) {
+    const departmentId: number = parseInt(updateData.departmentId)
+    const updatedDepartment: Department = await prisma.department.update({
+      where: { id: departmentId },
+      data: updateData.departmentData
+    })
+    if (!updatedDepartment) {
+      throw new Error("Error updating department")
+    }
+    return updatedDepartment
+  }
 }
+
+
+export default new DepartmentRepository()

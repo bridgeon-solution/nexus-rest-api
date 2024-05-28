@@ -1,7 +1,7 @@
-import { Department, Employee } from "@prisma/client";
 import createEmployeeUseCase from "../../usecases/employeeUseCases/createEmployeeUseCase";
 import amqp from 'amqplib'
 import extractErrorMessage from "../../utils/extractErrorMessage";
+import { Employee } from "../../entities/entityInterfaces/Employee.interface";
 
 
 let connection: amqp.Connection

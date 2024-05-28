@@ -1,50 +1,51 @@
+import { Department } from "@prisma/client";
 import amqp from 'amqplib'
-import updateEmployeeUseCase from "../../usecases/employeeUseCases/updateEmployeeUseCase";
-import { Employee, UpdateEmployees } from "../../entities/entityInterfaces/Employee.interface";
+import { UpdateDepartments } from "../../entities/entityInterfaces/Department.interface";
+import updateDepartmentUseCases from "../../usecases/departmentUseCases/updateDepartmentUseCases";
 
 let connection: amqp.Connection;
 let channel: amqp.Channel;
 
-async function updateEmployeeId() {
+async function updateDepartmentId() {
   try {
     const amqpServer = 'amqp://localhost';
     connection = await amqp.connect(amqpServer);
     console.log('Connected to RabbitMQ successfully.');
 
     channel = await connection.createChannel();
-    await channel.assertQueue("updated_employee");
-    console.log('Queue "updated_employee" is ready.');
-    updateEmployeeByFounder()
+    await channel.assertQueue("updated_department");
+    console.log('Queue "updated_department" is ready.');
+    updateDepartmentByFounder()
   } catch (error) {
     console.log('Error connecting to RabbitMQ:', error);
   }
 }
 
 
-const updateEmployeeByFounder = async () => {
+const updateDepartmentByFounder = async () => {
   if (!channel) {
     console.log('No RabbitMQ channel available')
     return
   }
   try {
-    await channel.consume("update_employee", async (msg: any) => {
+    await channel.consume("update_department", async (msg: any) => {
       if (msg !== null) {
         const content = msg.content.toString()
         //  convert to string first
         if (content) {
           const parsedData = JSON.parse(content)
-          const departmentData: UpdateEmployees = parsedData
+          const departmentData: UpdateDepartments = parsedData
           try {
-            const updatedDepartment: Employee | null = await updateEmployeeUseCase.updateEmployee(departmentData);
+            const updatedDepartment: Department | null = await updateDepartmentUseCases.updateDepartment(departmentData);
             // call the create department from use cases. (business logic)
-            await channel.sendToQueue("updated_employee", Buffer.from(JSON.stringify({
+            await channel.sendToQueue("updated_department", Buffer.from(JSON.stringify({
               status: 'success',
               data: updatedDepartment
             })))
             await channel.ack(msg)
           } catch (error: any) {
             console.log('Error updating department : ', error);
-            await channel.sendToQueue("updated_employee", Buffer.from(JSON.stringify({
+            await channel.sendToQueue("updated_department", Buffer.from(JSON.stringify({
               status: 'failed',
               message: error.message
             })));
@@ -59,5 +60,5 @@ const updateEmployeeByFounder = async () => {
 }
 
 export {
-  updateEmployeeId
+  updateDepartmentId
 } 

@@ -1,9 +1,6 @@
-import { DepartmentRepository } from "../../respositories/departmentRepository"
+import departmentRepository from "../../respositories/departmentRepository"
 
-
-const departmentRepository = new DepartmentRepository()
-
-export class GetDepartment {
+class GetDepartment {
   constructor() { }
   async getAllDepartments() {
     const departments = departmentRepository.findAll()
@@ -14,4 +11,6 @@ export class GetDepartment {
     const department = departmentRepository.findById(departmentId)
     return department
   }
-} 
+}
+
+export default new GetDepartment()
