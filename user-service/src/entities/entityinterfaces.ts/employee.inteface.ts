@@ -4,6 +4,7 @@ export interface Employee {
   phone: string,
   salary: number,
   gender: string,
+  image: string;
   birthdate: Date,
   role: string,
   designation: string,
