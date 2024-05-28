@@ -4,28 +4,39 @@ import { Department } from '../entities/entityInterfaces/Department.interface'
 
 const prisma = new PrismaClient()
 export class DepartmentRepository {
-  async createDepartment(department: any) {
+  async createDepartment(department: Department) {
     const createDepartment = await prisma.department.create({
       data: department
     })
-    console.log(createDepartment)
     return createDepartment
   }
 
   async findById(departmentId: number) {
-    const department = prisma.department.findUnique({
+    const department = await prisma.department.findUnique({
       where: { id: departmentId }
     })
+    if (!department) {
+      throw new Error("Record to find does not exist")
+    }
     return department
   }
 
   async findAll() {
-    const departments = prisma.department.findMany()
+    const departments: Department[] = await prisma.department.findMany();
+    if (!departments) {
+      throw new Error("No Departments found")
+    }
     return departments
   }
 
   async deleteDepartment(departmentId: number) {
-    const deletedDepartment = prisma.department.delete({
+    const departmentExist = await prisma.department.findUnique({
+      where: { id: departmentId }
+    })
+    if (!departmentExist) {
+      return null
+    }
+    const deletedDepartment = await prisma.department.delete({
       where: { id: departmentId }
     })
     return deletedDepartment

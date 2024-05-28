@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { founderSrvc } from "../../services/founderServices";
+import { founderSrvc } from "../../useCases/founderServices";
 import { FounderSignup } from "../../models/founderInterface";
 
 const founderSignup = async (req: Request, res: Response) => {
@@ -77,7 +77,7 @@ const deleteFounder = async (req: Request, res: Response) => {
         const id: string = req.params.id;
         const data = await founderSrvc.deleteFounderSrvc(id);
         console.log(data);
-        
+
         if (data) {
             res.status(200).json({
                 message: 'Successfully deleted'

@@ -1,11 +1,11 @@
-import { EmployeeRepository } from "../../respositories/employeeRepository";
+import employeeRepository from "../../respositories/employeeRepository"
 
-const employeeRepository = new EmployeeRepository()
-
-export class DeleteEmployee {
+class DeleteEmployee {
   constructor() { }
-  deleteEmployee(employeeId) {
+  deleteEmployee(employeeId: number) {
     const deletedEmployee = employeeRepository.delete(employeeId)
     return deletedEmployee
   }
 }
+
+export default new DeleteEmployee()
