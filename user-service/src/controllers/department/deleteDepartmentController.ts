@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Department from "../../entities/entityinterfaces.ts/department.interface";
+import { Department } from "../../entities/entityinterfaces.ts/department.interface";
 import deleteEmployeeUsecase from "../../useCases/departmentUsecases/deleteDepartment.usecase";
 import catchAsync from "../../middlewares/asyncErrorHandler";
 

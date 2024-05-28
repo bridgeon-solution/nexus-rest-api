@@ -1,6 +1,5 @@
 import amqp from 'amqplib'
 import EventEmitter from 'events'
-import Department from '../entities/entityinterfaces.ts/department.interface';
 import CustomError from './customErrorHandler';
 
 

@@ -1,6 +1,7 @@
-import { Department, Employee } from "@prisma/client";
+import { Department } from "@prisma/client";
 import amqp from 'amqplib'
 import getEmployeeUseCase from "../../usecases/employeeUseCases/getEmployeeUseCase";
+import { Employee } from "../../entities/entityInterfaces/Employee.interface";
 let connection: amqp.Connection
 let channel: amqp.Channel;
 
@@ -34,7 +35,7 @@ const getEmployeeByIdFounder = async () => {
           const parsedData = JSON.parse(content)
           try {
             const employeeId: number = parseInt(parsedData)
-            const employeeById: Employee = await getEmployeeUseCase.getEmployeeById(employeeId);
+            const employeeById:Employee = await getEmployeeUseCase.getEmployeeById(employeeId);
             // call the create department from use cases. (business logic)
             await channel.sendToQueue("readed_employeebyid", Buffer.from(JSON.stringify({
               status: "success",

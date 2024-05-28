@@ -1,4 +1,4 @@
-import Department from "../../entities/entityinterfaces.ts/department.interface";
+import { Department } from "../../entities/entityinterfaces.ts/department.interface";
 import CustomError from "../../utils/customErrorHandler";
 import messageBroker from "../../utils/messageBroker";
 

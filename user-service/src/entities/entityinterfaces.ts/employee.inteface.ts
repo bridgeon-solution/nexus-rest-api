@@ -28,3 +28,8 @@ export interface EmployeeResponse {
   }
 }
 
+export interface UpdateEmployees {
+  employeeId: string,
+  employeeData: any
+}
+

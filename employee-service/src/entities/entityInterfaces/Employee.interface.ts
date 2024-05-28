@@ -1,4 +1,4 @@
-interface Employee {
+export interface Employee {
   id?: number; // Optional for new employee creation
   fullname: string;
   email: string;
@@ -13,4 +13,7 @@ interface Employee {
   updatedAt?: Date; // Optional for new employee creation
 }
 
-export default Employee
+export interface UpdateEmployees {
+  employeeId: string,
+  employeeData: any
+}

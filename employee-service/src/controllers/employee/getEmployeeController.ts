@@ -1,6 +1,6 @@
-import { Department, Employee } from "@prisma/client";
 import amqp from 'amqplib'
 import getEmployeeUseCase from "../../usecases/employeeUseCases/getEmployeeUseCase";
+import { Employee } from '../../entities/entityInterfaces/Employee.interface';
 let connection: amqp.Connection
 let channel: amqp.Channel;
 

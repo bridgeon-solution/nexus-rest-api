@@ -1,10 +1,8 @@
 import { Department } from "@prisma/client";
-import { Request, Response } from "express";
-import { CreateDepartment } from "../../usecases/departmentUseCases/createDepartmentUseCase";
 import amqp from 'amqplib'
-import { GetDepartment } from "../../usecases/departmentUseCases/getDepartmentUseCase";
+import getDepartmentUseCase from "../../usecases/departmentUseCases/getDepartmentUseCase";
 
-const getDepartments = new GetDepartment();
+
 let connection: amqp.Connection;
 let channel: amqp.Channel;
 
@@ -38,7 +36,7 @@ const DepartmentByIdFounder = async () => {
           const parsedData = JSON.parse(content)
           const departmentId = parseInt(parsedData)
           try {
-            const deletedDepartment: Department | null = await getDepartments.getDepartmentById(departmentId);
+            const deletedDepartment: Department | null = await getDepartmentUseCase.getDepartmentById(departmentId);
             // call the create department from use cases. (business logic)
             await channel.sendToQueue("readed_departmentId", Buffer.from(JSON.stringify({
               status: 'success',

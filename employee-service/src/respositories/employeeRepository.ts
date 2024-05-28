@@ -1,21 +1,19 @@
 import { PrismaClient } from "@prisma/client"
-import Employee from "../entities/entityInterfaces/Employee.interface";
-
-
+import { Employee, UpdateEmployees } from "../entities/entityInterfaces/Employee.interface";
 
 const prisma = new PrismaClient()
 
 class EmployeeRepository {
   constructor() { }
   async create(employee: any) {
-    const createdEmployee = await prisma.employee.create({
+    const createdEmployee: Employee = await prisma.employee.create({
       data: employee
     })
     return createdEmployee
   }
 
   async delete(employeeId: number) {
-    const deleteEmployee = await prisma.employee.delete({
+    const deleteEmployee: Employee = await prisma.employee.delete({
       where: { id: employeeId }
     });
     if (!deleteEmployee) {
@@ -25,7 +23,7 @@ class EmployeeRepository {
   }
 
   async findOne(employeeId: number) {
-    const employee = await prisma.employee.findUnique({
+    const employee: Employee | null = await prisma.employee.findUnique({
       where: { id: employeeId }
     })
     if (!employee) {
@@ -35,8 +33,20 @@ class EmployeeRepository {
   }
 
   async findAll() {
-    const employees = await prisma.employee.findMany()
+    const employees: Employee[] = await prisma.employee.findMany()
     return employees
+  }
+
+  async update(employeeData: UpdateEmployees) {
+    const employeeId: number = parseInt(employeeData.employeeId);
+    const updatedEmployee: Employee = await prisma.employee.update({
+      where: { id: employeeId },
+      data: employeeData.employeeData
+    });
+    if (!updatedEmployee) {
+      throw new Error("Record to update does not exist")
+    }
+    return updatedEmployee
   }
 }
 

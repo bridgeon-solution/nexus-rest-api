@@ -1,4 +1,4 @@
-import Employee from "../../entities/entityInterfaces/Employee.interface";
+import { Employee } from "../../entities/entityInterfaces/Employee.interface";
 import employeeRepository from "../../respositories/employeeRepository";
 
 class CreateEmployee {
