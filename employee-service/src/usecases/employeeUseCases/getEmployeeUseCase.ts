@@ -1,16 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import { EmployeeRepository } from "../../respositories/employeeRepository";
+import employeeRepository from "../../respositories/employeeRepository";
 
-const employeeRepository = new EmployeeRepository()
 
-export class GetEmployee {
+class GetEmployee {
   constructor() { }
   async getAllEmployees() {
     const employees = await employeeRepository.findAll();
     return employees;
   }
-  async getEmployeeById(employeeId) {
+  async getEmployeeById(employeeId: number) {
     const employee = await employeeRepository.findOne(employeeId);
     return employee;
   }
 }
+
+export default new GetEmployee()
