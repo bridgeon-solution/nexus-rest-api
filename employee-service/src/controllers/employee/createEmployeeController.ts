@@ -34,7 +34,7 @@ const createEmployeeByFounder = async () => {
         const content = msg.content.toString()
         //  convert to string first
         if (content) {
-          const parsedData = JSON.parse(content)
+          const parsedData = JSON.parse(content);
           try {
             const createdEmployee: Employee = await createEmployeeUseCase.createEmployee(parsedData);
             // call the create department from use cases. (business logic)

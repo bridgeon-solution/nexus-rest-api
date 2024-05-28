@@ -14,6 +14,7 @@ model Employee {
   phone        String     @unique
   salary       Int
   gender       String
+  image        String
   birthdate    DateTime
   role         String
   designation  String

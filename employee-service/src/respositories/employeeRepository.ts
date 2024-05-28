@@ -48,6 +48,7 @@ class EmployeeRepository {
     }
     return updatedEmployee
   }
+
 }
 
 export default new EmployeeRepository()
