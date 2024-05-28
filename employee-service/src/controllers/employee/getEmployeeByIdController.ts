@@ -4,45 +4,46 @@ import getEmployeeUseCase from "../../usecases/employeeUseCases/getEmployeeUseCa
 let connection: amqp.Connection
 let channel: amqp.Channel;
 
-async function connectGetEmployee() {
+async function connectGetEmployeeId() {
   try {
     const amqpServer = 'amqp://localhost';
     connection = await amqp.connect(amqpServer);
     console.log('Connected to RabbitMQ successfully.');
 
     channel = await connection.createChannel();
-    await channel.assertQueue("readed_employee");
-    console.log('Queue "readed_employee" is ready.');
-    getAllEmployeeByFounder()
+    await channel.assertQueue("readed_employeebyid");
+    console.log('Queue "readed_employeebyid" is ready.');
+    getEmployeeByIdFounder()
   } catch (error) {
     console.log('Error connecting to RabbitMQ:', error);
   }
 }
 
 
-const getAllEmployeeByFounder = async () => {
+const getEmployeeByIdFounder = async () => {
   if (!channel) {
     console.log('No RabbitMQ channel available')
     return
   }
   try {
-    await channel.consume("read_employee", async (msg: any) => {
+    await channel.consume("read_employeebyid", async (msg: any) => {
       if (msg !== null) {
         const content = msg.content.toString()
         //  convert to string first
         if (content) {
           const parsedData = JSON.parse(content)
           try {
-            const createdEmployee: Employee[] = await getEmployeeUseCase.getAllEmployees();
+            const employeeId: number = parseInt(parsedData)
+            const employeeById: Employee = await getEmployeeUseCase.getEmployeeById(employeeId);
             // call the create department from use cases. (business logic)
-            await channel.sendToQueue("readed_employee", Buffer.from(JSON.stringify({
+            await channel.sendToQueue("readed_employeebyid", Buffer.from(JSON.stringify({
               status: "success",
-              data: createdEmployee
+              data: employeeById
             })));
             await channel.ack(msg);
           } catch (error: any) {
             console.log('Error finding employee : ', error.message)
-            await channel.sendToQueue("readed_employee", Buffer.from(JSON.stringify({
+            await channel.sendToQueue("readed_employeebyid", Buffer.from(JSON.stringify({
               status: 'failed',
               message: error.message
             })));
@@ -57,6 +58,6 @@ const getAllEmployeeByFounder = async () => {
 }
 
 export {
-  connectGetEmployee,
-  getAllEmployeeByFounder
+  connectGetEmployeeId,
+  getEmployeeByIdFounder
 } 

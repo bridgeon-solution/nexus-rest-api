@@ -28,6 +28,9 @@ class EmployeeRepository {
     const employee = await prisma.employee.findUnique({
       where: { id: employeeId }
     })
+    if (!employee) {
+      throw new Error("Record not found");
+    }
     return employee
   }
 
