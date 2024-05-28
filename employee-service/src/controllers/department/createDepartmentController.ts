@@ -15,8 +15,8 @@ async function connect() {
     console.log('Connected to RabbitMQ successfully.');
 
     channel = await connection.createChannel();
-    await channel.assertQueue("create_department");
-    console.log('Queue "create_department" is ready.');
+    await channel.assertQueue("created_department");
+    console.log('Queue "created_department" is ready.');
     createDepartmentByFounder()
   } catch (error) {
     console.log('Error connecting to RabbitMQ:', error);
@@ -39,13 +39,19 @@ const createDepartmentByFounder = async () => {
           try {
             const createdDepartment: Department = await createDepartments.createDepartment(parsedData);
             // call the create department from use cases. (business logic)
-            await channel.sendToQueue("department", Buffer.from(JSON.stringify(createdDepartment)))
+            await channel.sendToQueue("created_department", Buffer.from(JSON.stringify({
+              status: "success",
+              data: createdDepartment
+            })));
+            await channel.ack(msg);
+          } catch (error: any) {
+            console.log('Error Creating department : ', error.message)
+            await channel.sendToQueue("created_department", Buffer.from(JSON.stringify({
+              status: 'failed',
+              message: error.message
+            })));
             await channel.ack(msg)
-          } catch (error) {
-            console.log('Error Creating department : ', error)
           }
-          // parsing the content from json to object
-          // await channel.ack(msg)
         }
       }
     }, { noAck: false })

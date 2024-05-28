@@ -10,7 +10,8 @@ export class GetDepartment {
     return departments
   }
 
-  async getDepartmentById(departmentId) {
+  async getDepartmentById(departmentId: any) {
     const department = departmentRepository.findById(departmentId)
+    return department
   }
 } 

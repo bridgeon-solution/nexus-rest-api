@@ -5,7 +5,7 @@ import Employee from "../entities/entityInterfaces/Employee.interface";
 
 const prisma = new PrismaClient()
 
-export class EmployeeRepository {
+class EmployeeRepository {
   constructor() { }
   async create(employee: any) {
     const createdEmployee = await prisma.employee.create({
@@ -18,6 +18,9 @@ export class EmployeeRepository {
     const deleteEmployee = await prisma.employee.delete({
       where: { id: employeeId }
     });
+    if (!deleteEmployee) {
+      throw new Error('Record to delete does not exist')
+    }
     return deleteEmployee
   }
 
@@ -33,3 +36,5 @@ export class EmployeeRepository {
     return employees
   }
 }
+
+export default new EmployeeRepository()

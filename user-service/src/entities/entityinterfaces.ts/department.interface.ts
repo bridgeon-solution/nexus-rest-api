@@ -1,5 +1,9 @@
 interface Department {
-  name: String
+  status?: string
+  data?: {
+    id?: number,
+    name?: string
+  }
 }
 
 export default Department

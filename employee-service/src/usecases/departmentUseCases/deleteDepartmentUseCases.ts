@@ -3,9 +3,9 @@ import { DepartmentRepository } from "../../respositories/departmentRepository"
 
 const departmentRepository = new DepartmentRepository()
 
-class DeleteDepartment {
+export class DeleteDepartment {
   constructor() { }
-  async deleteDepartment(departmentId: number): Promise<Department> {
+  async deleteDepartment(departmentId: number) {
     const deletedDepartment = departmentRepository.deleteDepartment(departmentId);
     return deletedDepartment
 

@@ -2,12 +2,12 @@ import express, { Express } from 'express';
 import { FounderRouter } from './routes/founderRouter';
 import employeeRouter from './routes/employeeRoutes';
 import cors from 'cors'
-import { MessageBroker } from './utils/messageBroker';
 import departmentRouter from './routes/departmentRoutes';
-import { connect } from './controllers/department/createDepartmentController';
 
-connect()
-
+// connectDepartment()
+// connectDeleteDepartment()
+// connectAllDepartment()
+// connectidDepartment();
 
 const app: Express = express();
 app.use(cors())

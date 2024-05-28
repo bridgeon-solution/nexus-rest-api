@@ -1,24 +1,18 @@
 import { Request, Response } from "express";
-import { MessageBroker } from "../../utils/messageBroker";
-import amqp from 'amqplib'
-const messageBroker = new MessageBroker();
-const createEmployee = async (req: Request, res: Response) => {
-  try {
-    const employee = req.body;
-    console.log(req.body)
-    const connection = await amqp.connect('amqp://localhost');
-    const channel = await connection.createChannel()
-    await channel.assertQueue("employee", { durable: true })
-    channel.sendToQueue("employee", Buffer.from(JSON.stringify(employee)));
-    console.log(`Message send : `, employee);
+import catchAsync from "../../middlewares/asyncErrorHandler";
+import createEmployeeUsecase from "../../useCases/employeeUseCases/createEmployee.usecase";
+import { Employee, EmployeeResponse } from "../../entities/entityinterfaces.ts/employee.inteface";
 
-    // send message through rabbitMQ
-    // await messageBroker.consumeMessage("employees", (data) => {
-    //   console.log(JSON.parse(JSON.stringify(data)))
-    // })
-  } catch (error) {
-    console.log("Error creating Employee : ", error)
-  }
-}
 
-export default createEmployee
+const createEmployee = catchAsync(async (req: Request, res: Response) => {
+  const employee: Employee = req.body;
+  const createdDepartment: EmployeeResponse = await createEmployeeUsecase.createEmployee(employee);
+  res.status(200).json({
+    status: 'success',
+    data: createdDepartment.data
+  })
+})
+
+
+
+export { createEmployee };
