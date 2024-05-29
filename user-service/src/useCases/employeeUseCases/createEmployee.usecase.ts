@@ -8,7 +8,6 @@ class CreateEmployee {
   async createEmployee(Employee: Employee) {
     
     try {
-      // console.log(Employee);
       await messageBroker.sendMessage("create_employee", Employee);
       // send message to the queue
       await messageBroker.listenForResponse("created_employee");
