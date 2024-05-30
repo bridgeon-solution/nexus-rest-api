@@ -6,6 +6,11 @@ import { Employee, EmployeeResponse } from "../../entities/entityinterfaces.ts/e
 
 const createEmployee = catchAsync(async (req: Request, res: Response) => {
   const employee: Employee = req.body;
+  const salary:number = Number(employee.salary);
+  const deprtId:number = Number(employee.departmentId);
+  employee.salary = salary;
+  employee.departmentId = deprtId;
+  
   const createdDepartment: EmployeeResponse = await createEmployeeUsecase.createEmployee(employee);
   res.status(200).json({
     status: 'success',

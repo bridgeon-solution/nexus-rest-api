@@ -6,6 +6,7 @@ import messageBroker from "../../utils/messageBroker";
 class CreateEmployee {
   constructor() { }
   async createEmployee(Employee: Employee) {
+    
     try {
       await messageBroker.sendMessage("create_employee", Employee);
       // send message to the queue

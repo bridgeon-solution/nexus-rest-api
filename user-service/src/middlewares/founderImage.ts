@@ -30,18 +30,14 @@ cloudin.config({
 
 export const founderProfileimgUpload = async (req: Request, res: Response, next: NextFunction) => {
     upload.single("image")(req, res, async (err) => {
-        // const file = req.file;
-        // console.log(req.file);
         if (err) {
-            console.log('An error occured');
+            console.log(err);
+            
         }
         try {
             const result = await cloudin.uploader.upload(req.file.path, {
-                folder: "userpofile",
-                transformation: [
-                    { width: 500, height: 500, crop: 'fill' }
-                ]
-            });
+                folder: "userimg"
+            })
             req.body.image = result.secure_url;
             fs.unlink(req.file.path, (unlinker) => {
                 if (unlinker) {
@@ -50,7 +46,8 @@ export const founderProfileimgUpload = async (req: Request, res: Response, next:
             })
             next()
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
+            
         }
     })
 }
