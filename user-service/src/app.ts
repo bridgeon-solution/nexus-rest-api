@@ -3,6 +3,7 @@ import { FounderRouter } from './routes/founderRouter';
 import employeeRouter from './routes/employeeRoutes';
 import cors from 'cors'
 import departmentRouter from './routes/departmentRoutes';
+import announcementRouter from './routes/announcementRoutes';
 
 // connectDepartment()
 // connectDeleteDepartment()
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use('/api/v1/founders', FounderRouter);
 app.use('/api/v1/employees', employeeRouter);
-app.use('/api/v1/departments', departmentRouter)
+app.use('/api/v1/departments', departmentRouter);
+app.use('/api/v1/announcements', announcementRouter)
 //global error handler
 export default app
