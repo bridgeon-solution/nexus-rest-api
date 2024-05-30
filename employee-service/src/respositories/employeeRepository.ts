@@ -33,7 +33,7 @@ class EmployeeRepository {
   }
 
   async findAll() {
-    const employees: Employee[] = await prisma.employee.findMany()
+    const employees: Employee[] = await prisma.employee.findMany({ include: { department: true } })
     return employees
   }
 
@@ -48,6 +48,7 @@ class EmployeeRepository {
     }
     return updatedEmployee
   }
+
 }
 
 export default new EmployeeRepository()
