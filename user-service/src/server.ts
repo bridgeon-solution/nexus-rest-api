@@ -23,6 +23,7 @@ const startServer = async () => {
 }
 
 startServer()
+
 app.use(globalErrorHandler)
 app.listen(4000, () => {
     console.log('user-service is listening in port 4000');

@@ -1,17 +1,21 @@
 import express, { Express } from 'express'
-import { connectCreateEmployee } from './controllers/employee/createEmployeeController'
 import { connect } from './controllers/department/createDepartmentController'
 import { connectDeleteDepartment } from './controllers/department/deleteDepartmentController'
 import { connectAllDepartment } from './controllers/department/getDepartmentController'
 import { connectDepartmentId } from './controllers/department/getDepartmentByIdController'
-import { connectDeleteEmployee } from './controllers/employee/deleteEmployeeController'
-import { connectGetEmployee } from './controllers/employee/getEmployeeController'
-import { connectGetEmployeeId } from './controllers/employee/getEmployeeByIdController'
-import { updateEmployeeId } from './controllers/employee/updateEmployeeController'
+import { connectDeleteEmployee } from './controllers/employees/deleteEmployeeController'
+import { connectGetEmployee } from './controllers/employees/getEmployeeController'
+import { connectGetEmployeeId } from './controllers/employees/getEmployeeByIdController'
+import { updateEmployeeId } from './controllers/employees/updateEmployeeController'
 import { updateDepartmentId } from './controllers/department/updateDepartmentController.ts'
+import employeeRouter from './routes/employeeRoutes'
+import { connectCreateEmployee } from './controllers/employees/createEmployeeController'
 
 
 const app: Express = express()
+app.use(express.json())
+
+app.use('/api/v1/employees', employeeRouter)
 
 //createEmployee()
 connect()

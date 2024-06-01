@@ -7,7 +7,8 @@ class EmployeeRepository {
   constructor() { }
   async create(employee: any) {
     const createdEmployee: Employee = await prisma.employee.create({
-      data: employee
+      data: employee,
+      include: { department: true }
     })
     return createdEmployee
   }
@@ -24,7 +25,8 @@ class EmployeeRepository {
 
   async findOne(employeeId: number) {
     const employee: Employee | null = await prisma.employee.findUnique({
-      where: { id: employeeId }
+      where: { id: employeeId },
+      include: { department: true }
     })
     if (!employee) {
       throw new Error("Record not found");
@@ -33,7 +35,7 @@ class EmployeeRepository {
   }
 
   async findAll() {
-    const employees: Employee[] = await prisma.employee.findMany({include:{department: true}})
+    const employees: Employee[] = await prisma.employee.findMany({ include: { department: true } })
     return employees
   }
 
