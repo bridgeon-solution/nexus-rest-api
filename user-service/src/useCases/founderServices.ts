@@ -1,7 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import bcrypt from 'bcrypt';
 import { FounderSignup } from "../models/founderInterface";
-import hashPassword from "../../../common/utils/hashPassword";
+import hashPassword from "../utils/hashPassword";
 import founderPaymnet from "../utils/payment";
 const prisma = new PrismaClient();
 
@@ -54,7 +53,7 @@ const updateFounderSrvc = async (data: FounderSignup, founderId: string): Promis
 const deleteFounderSrvc = async (founderId: string): Promise<boolean> => {
     const id: number = Number(founderId);
     try {
-        const founderFinding = await prisma.founders.findUnique({where:{id}});
+        const founderFinding = await prisma.founders.findUnique({ where: { id } });
         console.log(founderFinding);
         if (founderFinding) {
             const deleteFounder = await prisma.founders.delete({ where: { id } });

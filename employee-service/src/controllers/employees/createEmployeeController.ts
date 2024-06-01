@@ -40,7 +40,7 @@ const createEmployeeByFounder = async () => {
             // call the create department from use cases. (business logic)
             await channel.sendToQueue("created_employee", Buffer.from(JSON.stringify({
               status: "success",
-              data: createdEmployee
+              data: createdEmployee,
             })));
             await channel.ack(msg);
           } catch (error: any) {
