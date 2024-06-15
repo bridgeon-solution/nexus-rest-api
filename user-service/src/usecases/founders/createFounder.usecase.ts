@@ -1,5 +1,4 @@
 import { Founder, FounderSignup } from "../../enitities/entityClasses/founder.interface";
-import employeesRepository from "../../repositories/employees.repository";
 import founderRepostory from "../../repositories/founder.repostory";
 import CustomError from "../../utils/customErrorHandler";
 import hashPassword from "../../utils/hashPassword";

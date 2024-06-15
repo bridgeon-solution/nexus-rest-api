@@ -11,7 +11,8 @@ const createEmployee = catchAsync(async (req: Request, res: Response) => {
   const deprtId: number = Number(employee.departmentId);
   employee.salary = salary;
   employee.departmentId = deprtId;
-
+  employee.birthdate = new Date(employee.birthdate);
+  
   const createdDepartment: Employee = await createEmployeesUsecase.createEmployee(employee);
   res.status(200).json({
     status: 'success',

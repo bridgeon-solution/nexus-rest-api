@@ -14,5 +14,5 @@ class GetDepartment {
     return department
   }
 }
-
+  
 export default new GetDepartment()

@@ -10,7 +10,7 @@ const updateEmployee = catchAsync(async (req: Request, res: Response) => {
     employeeId: employeeId,
     employeeData: employee
   }
-  const updatedEmployee: Employee = await updateEmployeeUsecase.updateEmployee(employeeData);
+  const updatedEmployee = await updateEmployeeUsecase.updateEmployee(employeeData);
   res.status(200).json({
     status: 'success',
     data: updatedEmployee

@@ -5,7 +5,7 @@ import employeesRepository from "../../repositories/employees.repository"
 class UpdateEmployee {
   constructor() { }
   async updateEmployee(departmentData: UpdateEmployees) {
-    const employee: Employee = await employeesRepository.update(departmentData)
+    const employee = await employeesRepository.update(departmentData)
     return employee
   }
 

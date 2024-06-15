@@ -2,6 +2,7 @@ import Prisma, { PrismaClient } from '@prisma/client'
 import { Department, UpdateDepartments } from '../enitities/entityClasses/department.interface'
 
 const prisma = new PrismaClient()
+
 class DepartmentRepository {
   async createDepartment(department: Department) {
     const createDepartment = await prisma.department.create({

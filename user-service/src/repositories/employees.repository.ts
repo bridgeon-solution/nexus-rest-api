@@ -7,11 +7,16 @@ const prisma = new PrismaClient()
 class EmployeeRepository {
   constructor() { }
   async create(employee: any) {
-    const createdEmployee: Employee = await prisma.employee.create({
-      data: employee,
-      include: { department: true }
-    })
-    return createdEmployee
+    try {
+      const createdEmployee: Employee = await prisma.employee.create({
+        data: employee,
+        include: { department: true }
+      })
+      return createdEmployee
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 
   async delete(employeeId: number) {
@@ -39,11 +44,13 @@ class EmployeeRepository {
 
   async update(employeeData: UpdateEmployees) {
     const employeeId: number = parseInt(employeeData.employeeId);
-    const updatedEmployee: Employee = await prisma.employee.update({
-      where: { id: employeeId },
-      data: employeeData.employeeData
-    });
-    return updatedEmployee
+    console.log(employeeData);
+    
+    // const updatedEmployee: Employee = await prisma.employee.update({
+    //   where: { id: employeeId },
+    //   data: employeeData.employeeData
+    // });
+    // return updatedEmployee
   }
 
 }
