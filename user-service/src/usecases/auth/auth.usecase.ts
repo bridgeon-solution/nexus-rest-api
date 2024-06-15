@@ -17,7 +17,9 @@ class Auth {
         where: { email: loginData.email }
       })
       if (founder) {
-        const isMatch: boolean = await bcrypt.compare(loginData.password, founder.password)
+        const isMatch: boolean = await bcrypt.compare(loginData.password, founder.password);
+        console.log(founder.ispaid);
+        
         if (isMatch) {
           const token: string = generateToken(founder.id, founder.role)
           return { founder, token } // early return successfull founder login

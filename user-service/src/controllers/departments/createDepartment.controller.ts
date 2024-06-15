@@ -5,7 +5,8 @@ import createDepartmentUsecase from "../../usecases/departments/createDepartment
 
 
 const createDepartment = catchAsync(async (req: Request, res: Response) => {
-  const department = req.body;
+  const department = req.body.name;
+  
   const createdDepartment: Department = await createDepartmentUsecase.createDepartment(department);
   res.status(200).json({
     status: 'success',

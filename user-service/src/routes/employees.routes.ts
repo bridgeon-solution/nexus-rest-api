@@ -12,6 +12,6 @@ employeesRouter.post('/create', profileImgUpload, createEmployee);
 employeesRouter.get('/', getAllEmployees);
 employeesRouter.get('/:id', getEmployeeById);
 employeesRouter.delete('/:id', deleteEmployee);
-employeesRouter.patch('/:id', updateEmployee)
+employeesRouter.patch('/:id', profileImgUpload, updateEmployee)
 
 export default employeesRouter

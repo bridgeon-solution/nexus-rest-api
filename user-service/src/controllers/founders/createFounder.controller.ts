@@ -9,6 +9,7 @@ import createFounderUsecase from "../../usecases/founders/createFounder.usecase"
 
 const createFounder = catchAsync(async (req: Request, res: Response) => {
   const founder: FounderSignup = req.body;
+  
   const createdFounder: Founder = await createFounderUsecase.createEmployee(founder)
   res.status(200).json({
     status: 'success',

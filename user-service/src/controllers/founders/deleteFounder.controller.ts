@@ -1,21 +1,18 @@
-// import { Request, Response } from "express";
-// import { Employee } from "../../enitities/entityClasses/employee.interface";
-// import catchAsync from "../../utils/asyncErrorHandler";
-// import createEmployeesUsecase from "../../usecases/employees/createEmployees.usecase";
-// import { Founder, FounderSignup } from "../../enitities/entityClasses/founder.interface";
-// import createFounderUsecase from "../../usecases/founders/createFounder.usecase";
+import { Request, Response } from "express";
+import catchAsync from "../../utils/asyncErrorHandler";
+import deleteFounderUsecases from "../../usecases/founders/deleteFounder.usecases";
 
 
 
-// const deleteFounder = catchAsync(async (req: Request, res: Response) => {
-//   const founder: string = req.params.id;
-//   const createdFounder: Founder = await createFounderUsecase.createEmployee(founder)
-//   res.status(200).json({
-//     status: 'success',
-//     data: createdFounder
-//   })
-// })
+const deleteFounder = catchAsync(async (req: Request, res: Response) => {
+    const founder: string = req.params.id;
+    const createdFounder = await deleteFounderUsecases.deleteFounder(founder)
+    res.status(200).json({
+        status: 'success',
+        data: createdFounder
+    })
+})
 
 
 
-// export default deleteFounder
+export default deleteFounder
