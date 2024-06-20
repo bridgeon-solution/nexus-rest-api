@@ -1,11 +1,11 @@
 import { LeaveData, PrismaClient } from "@prisma/client";
 import { LeaveRequest } from "../entities/entityClasses.ts/leave.interface";
-import axios from "axios";
+
 
 const prisma = new PrismaClient()
 
 class LeaveRepository {
-    async createLeave(leaveData: LeaveRequest):Promise<LeaveData> {
+    async createLeave(leaveData: LeaveRequest): Promise<LeaveData> {
         if (leaveData) {
             const createLeave = await prisma.leaveData.create({
                 data: leaveData
