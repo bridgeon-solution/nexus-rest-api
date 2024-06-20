@@ -1,7 +1,8 @@
 import app from "./app";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
 
-// console.log(process.env.DATABASE_URL);
+app.use(globalErrorHandler)
 
-app.listen(4000,()=>{
-    console.log('Founder is listening in port 4000');
+app.listen(4000, () => {
+  console.log('user service is listening to 4000')
 })

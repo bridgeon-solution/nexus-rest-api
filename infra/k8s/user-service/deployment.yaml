@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-depl #  your desired deployment name
+spec:
+  replicas: 1 # Number of pods to run
+  selector:
+    matchLabels:
+      app: user-service # Labels to identify application
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service # replace with actual container name
