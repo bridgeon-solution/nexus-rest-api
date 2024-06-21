@@ -18,10 +18,9 @@ class Auth {
       })
       if (founder) {
         const isMatch: boolean = await bcrypt.compare(loginData.password, founder.password);
-        console.log(founder.ispaid);
-        
         if (isMatch) {
           const token: string = generateToken(founder.id, founder.role)
+          console.log(token)
           return { founder, token } // early return successfull founder login
         } else {
           throw new CustomError("password doesnt match please try again!", 500)
