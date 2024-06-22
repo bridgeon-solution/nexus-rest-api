@@ -10,14 +10,56 @@ spec:
   template:
     metadata:
       labels:
-        app: myapp
+        app: user-service
     spec:
       containers:
         - name: user-service
-          image: rinshahan/user-service
+          image: rinshahan/user-service:latest
           resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 4000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: DATABASE_URL
+            - name: JWT_SECRET_STR
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: JWT_SECRET_STR
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: STRIPE_KEY
+            - name: CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: CLOUD_NAME
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: API_KEY
+            - name: API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: API_SECRET
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-srv
+spec:
+  selector:
+    type: LoadBalancer
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+      nodePort: 31000
