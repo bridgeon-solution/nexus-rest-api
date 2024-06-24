@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: service-url
+type: generic
+stringData:
+  url: http://10.101.112.79:4000

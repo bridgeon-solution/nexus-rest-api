@@ -56,10 +56,16 @@ metadata:
   name: user-srv
 spec:
   selector:
-    type: LoadBalancer
     app: user-service
   ports:
     - protocol: TCP
       port: 4000
       targetPort: 4000
-      nodePort: 31000
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-url
+type: generic
+stringData:
