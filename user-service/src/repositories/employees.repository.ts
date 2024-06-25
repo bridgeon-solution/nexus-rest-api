@@ -31,9 +31,6 @@ class EmployeeRepository {
       where: { id: employeeId },
       include: { department: true }
     })
-    if (!employee) {
-      throw new Error("Record not found");
-    }
     return employee
   }
 

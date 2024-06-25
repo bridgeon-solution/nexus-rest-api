@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import catchAsync from "../../utils/asyncErrorHandler";
 import { Employee } from "../../enitities/entityClasses/employee.interface";
 import getEmployeeUsecase from "../../usecases/employees/getEmployee.usecase";
+import messageBroker from "../../utils/messageBroker";
+import getEmployeeBrokerUsecase from "../../usecases/employees/getEmployeeBroker.usecase";
 
 
 const getEmployeeById = catchAsync(async (req: Request, res: Response) => {
@@ -15,5 +17,14 @@ const getEmployeeById = catchAsync(async (req: Request, res: Response) => {
 })
 
 
+const listenForEmployeeInfo = async () => {
+  await messageBroker.consumeMessage("getEmployeeById", async (data) => {
+    await getEmployeeBrokerUsecase.getEmployeeId(data)
+  })
+};
 
-export { getEmployeeById };
+
+
+export { getEmployeeById, listenForEmployeeInfo };
+
+

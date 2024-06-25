@@ -4,19 +4,15 @@ import CustomError from './customErrorHandler';
 
 
 class MessageBroker {
-  private connection: amqp.Connection;
-  private channel: amqp.Channel;
+  private connection: any;
+  private channel: any;
   private eventEmitter: EventEmitter = new EventEmitter();
-  private queues: Record<string, string> = {};
   private responseSent: boolean;
   constructor() {
     this.eventEmitter = new EventEmitter();
     this.responseSent = false
   }
 
-  // private handleChannelError(Error) {
-  //   console.error("Error with RabbitMQ Channel : ", Error)
-  // }
 
   async Connect(): Promise<void> {
     console.log("Connecting to RabbitMQ");
@@ -24,7 +20,7 @@ class MessageBroker {
       this.connection = await amqp.connect('amqp://localhost');
       this.channel = await this.connection.createChannel();
       console.log(`Connected RabbitMQ successfully`);
-    } catch (error) {
+    } catch (error: any) {
       console.log("Failed to Connnect to RabbitMQ : ", error.message)
     }
   }
@@ -41,13 +37,13 @@ class MessageBroker {
     try {
       await this.channel.assertQueue(queueName);
       console.log(`asserting Message ${queueName} queue`);
-    } catch (error) {
+    } catch (error: any) {
       console.log('Error asserting queue', error)
     }
   }
 
   async listenForResponse(queueName: string) {
-    await this.channel.consume(queueName, async (message) => {
+    await this.channel.consume(queueName, async (message: any) => {
       if (message !== null) {
         const response = message.content.toString();
         if (response) {
@@ -64,7 +60,7 @@ class MessageBroker {
               this.eventEmitter.emit(`dataRecievedError`, error);
               this.channel.ack(message)
             }
-          } catch (error) {
+          } catch (error: any) {
             console.log(`Error processing ${queueName} response : `, error)
           }
         }
@@ -106,27 +102,27 @@ class MessageBroker {
   //   }
   // }
 
-  async consumeMessage(queue, callback) {
-    if (!this.channel) {
-      console.log("No RabbitMQ Channel Available")
-      return
-    }
-    try {
-      await this.channel.consume(queue, async (message) => {
-        if (!message) {
-          console.log("Recieved null message from RabbitMQ")
-        }
-        const content = message.content.toString();
-        const parsedContent = JSON.parse(content)
-        callback(parsedContent);
-        await this.channel.ack(message)
-      });
+  // async consumeMessage(queue, callback) {
+  //   this.Connect()
+  //   if (!this.channel) {
+  //     console.log("No RabbitMQ Channel Available")
+  //     return
+  //   }
+  //   try {
+  //     await this.channel.consume(queue, async (message) => {
+  //       if (!message) {
+  //         console.log("Recieved null message from RabbitMQ")
+  //       }
+  //       const content = message.content.toString();
+  //       const parsedContent = JSON.parse(content)
+  //       callback(parsedContent);
+  //       await this.channel.ack(message)
+  //     });
 
-    } catch (error) {
-      console.log(error)
-      await this.channel.ack(error)
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
 }
 
