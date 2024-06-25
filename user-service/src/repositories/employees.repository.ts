@@ -41,13 +41,12 @@ class EmployeeRepository {
 
   async update(employeeData: UpdateEmployees) {
     const employeeId: number = parseInt(employeeData.employeeId);
-    console.log(employeeData);
     
-    // const updatedEmployee: Employee = await prisma.employee.update({
-    //   where: { id: employeeId },
-    //   data: employeeData.employeeData
-    // });
-    // return updatedEmployee
+    const updatedEmployee: Employee = await prisma.employee.update({
+      where: { id: employeeId },
+      data: employeeData.employeeData
+    });
+    return updatedEmployee
   }
 
 }

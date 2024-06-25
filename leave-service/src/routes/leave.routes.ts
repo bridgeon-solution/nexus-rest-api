@@ -1,10 +1,10 @@
 import express, { Router } from "express"
 import { createLeave } from "../controllers/leave/createLeave";
-import { getAllLeaves } from "../controllers/leave/getAllLeaves";
+import { getAllLeavesById } from "../controllers/leave/getAllLeaves";
 
 const leaveRoute: Router = express.Router();
 
 leaveRoute.post('/create/:id', createLeave)
-leaveRoute.get('/', getAllLeaves)
+leaveRoute.get('/:id', getAllLeavesById)
 
 export default leaveRoute;  

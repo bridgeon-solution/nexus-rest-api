@@ -17,7 +17,7 @@ export interface Employee {
 
 export interface UpdateEmployees {
   employeeId: string,
-  employeeData: any
+  employeeData: Employee
 }
 
 
