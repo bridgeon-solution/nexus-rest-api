@@ -2,8 +2,8 @@ import leaveRepository from "../../repositories/leave.repository";
 
 class getLeaves {
     constructor() { }
-    async getAllLeaves() {
-        const data = await leaveRepository.getAllLeaves();
+    async getAllLeavesById(id: string) {
+        const data = await leaveRepository.getAllLeavesById(id);
         return data;
     }
 }

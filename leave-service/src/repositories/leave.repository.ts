@@ -1,21 +1,16 @@
-import { LeaveData, PrismaClient } from "@prisma/client";
+import leaveSchema from "../database/schemas/leave.schema";
 import { LeaveRequest } from "../entities/entityClasses.ts/leave.interface";
 
-
-const prisma = new PrismaClient()
-
 class LeaveRepository {
-    async createLeave(leaveData: LeaveRequest): Promise<LeaveData> {
+    async createLeave(leaveData: LeaveRequest) {
         if (leaveData) {
-            const createLeave = await prisma.leaveData.create({
-                data: leaveData
-            })
+            const createLeave = await leaveSchema.create(leaveData)
             return createLeave;
         }
     }
 
-    async getAllLeaves() {
-        const allLeaves = await prisma.leaveData.findMany()
+    async getAllLeavesById(id: string) {
+        const allLeaves = await leaveSchema.find({ employeeId: id });
         return allLeaves;
     }
 }
