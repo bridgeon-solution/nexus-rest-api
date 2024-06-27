@@ -1,18 +1,23 @@
 import app from "./app";
 import SendmessageBroker from "./controllers/getEmployee.controller";
+import dbConnection from "./databases/connection/database.connection";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
 import messageBroker from "./utils/messageBroker";
 
-const eventListener = async (data: any) => {
-  console.log(data)
-}
+dbConnection()
 
-messageBroker.Connect().then(() => {
-  SendmessageBroker()
-  messageBroker.setupQueue("EmployeeId")
-  messageBroker.listenForResponse("EmployeeId")
-  messageBroker.on("dataRecieved", eventListener)
-})
+// const eventListener = async (data: any) => {
+//   console.log(data)
+// }
 
+// messageBroker.Connect().then(() => {
+//   SendmessageBroker()
+//   messageBroker.setupQueue("EmployeeId")
+//   messageBroker.listenForResponse("EmployeeId")
+//   messageBroker.on("dataRecieved  ", eventListener)
+// })
+
+app.use(globalErrorHandler)
 
 
 app.listen(4002, () => {
