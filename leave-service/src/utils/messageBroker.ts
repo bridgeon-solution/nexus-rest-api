@@ -38,7 +38,6 @@ class MessageBroker {
   }
 
   async setupQueue(queueName: string) {
-    await this.Connect()
     try {
       await this.channel.assertQueue(queueName);
       console.log(`asserting Message ${queueName} queue`);
@@ -55,7 +54,7 @@ class MessageBroker {
           try {
             const data = JSON.parse(response);
             if (data.status === 'success') {
-              console.log(`Recieved message from ${queueName} queue`, data);
+              // console.log(`Recieved message from ${queueName} queue`, data);
               this.channel.ack(message);
               this.responseSent = true;
               this.eventEmitter.emit("dataRecieved", data);
@@ -89,26 +88,25 @@ class MessageBroker {
   }
 
 
-  async publishMessage(queuename, message): Promise<void> {
-    if (!this.channel) {
-      console.log("No RabbitMQ channel Available.");
-      return;
-    }
-    try {
-      await this.channel.assertQueue(queuename);
-      this.queues[queuename]
-    } catch (error) {
+  // async publishMessage(queuename, message): Promise<void> {
+  //   if (!this.channel) {
+  //     console.log("No RabbitMQ channel Available.");
+  //     return;
+  //   }
+  //   try {
+  //     await this.channel.assertQueue(queuename);
+  //     this.queues[queuename]
+  //   } catch (error) {
 
-    }
-    try {
-      (await this.channel).sendToQueue(queuename, Buffer.from(JSON.stringify(message)));
-    } catch (error) {
-      console.log("Error Sending RabbitMQ messages : ", error);
-    }
-  }
+  //   }
+  //   try {
+  //     (await this.channel).sendToQueue(queuename, Buffer.from(JSON.stringify(message)));
+  //   } catch (error) {
+  //     console.log("Error Sending RabbitMQ messages : ", error);
+  //   }
+  // }
 
   async consumeMessage(queue, callback) {
-    this.Connect()
     if (!this.channel) {
       console.log("No RabbitMQ Channel Available")
       return

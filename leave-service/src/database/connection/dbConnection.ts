@@ -8,7 +8,7 @@ export function connection() {
     mongoose.connect(process.env.DATABASE_URL, {
         dbName: 'Leave'
     }).then((res) => {
-        console.log("Mongo Connected");
+        // console.log("Mongo Connected");
     }, (err) => {
         console.log(err.message);
     })

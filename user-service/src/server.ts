@@ -1,5 +1,5 @@
 import app from "./app";
-import { getEmployeeById, listenForEmployeeInfo } from "./controllers/employees/getEmployeeId.controller";
+import { listenForEmployeeInfo } from "./controllers/employees/getEmployeeId.controller";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import messageBroker from "./utils/messageBroker";
 app.use(globalErrorHandler)

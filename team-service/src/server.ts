@@ -15,6 +15,6 @@ messageBroker.Connect().then(() => {
 
 
 
-app.listen(4002, () => {
-  console.log('team-service is listening to port 4002')
+app.listen(4003, () => {
+  console.log('team-service is listening to port 4003')
 })
