@@ -3,6 +3,6 @@ import { createPayRoll } from "../controller/payroll/createPayRoll";
 
 const payRollRoute: Router = express.Router();
 
-payRollRoute.post('/create', createPayRoll)
+payRollRoute.post('/create/:id', createPayRoll)
 
 export default payRollRoute;  

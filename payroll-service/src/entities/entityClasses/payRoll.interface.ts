@@ -1,11 +1,11 @@
 import { ObjectId } from "mongoose";
 
 export interface PayRoll {
-    employeeId: ObjectId,
+    employeeId: number,
     paymentDate: Date,
     baseSalary: number,
     deductions: number,
-    totalPaid: number,
+    netPay: number,
     note?: string,
     timestamps: boolean
 }

@@ -24,6 +24,26 @@ class GetEmployeeBroker {
       await messageBroker.sendMessage("EmployeeId", data)
     }
   }
+  async getAllEmployees() {
+    try {
+      const employee: Employee[] = await employeesRepository.findAll();
+      const data = {
+        status: 'success',
+        employee: employee
+      }      
+      await messageBroker.sendMessage("EmployeeId", data)
+      if (!employee) {
+        throw new Error("Employee Not Found")
+      }
+    } catch (error: any) {
+      console.log(error.message)
+      const data = {
+        status: 'failed',
+        message: error.message
+      }
+      await messageBroker.sendMessage("EmployeeId", data)
+    }
+  }
 }
 
 export default new GetEmployeeBroker()

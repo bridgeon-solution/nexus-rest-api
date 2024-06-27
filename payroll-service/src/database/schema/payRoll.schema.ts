@@ -3,9 +3,7 @@ import { PayRoll } from "../../entities/entityClasses/payRoll.interface";
 
 const schema = new mongoose.Schema<PayRoll>({
     employeeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Employee',
-        required: true
+        type: Number
     },
     paymentDate: {
         type: Date,
@@ -14,14 +12,17 @@ const schema = new mongoose.Schema<PayRoll>({
     },
     baseSalary: {
         type: Number,
+        default: 0,
         required: true
     },
     deductions: {
         type: Number,
+        default: 0,
         required: true
     },
-    totalPaid: {
+    netPay: {
         type: Number,
+        default: 0,
         required: true
     },
     note: {
@@ -34,8 +35,10 @@ const schema = new mongoose.Schema<PayRoll>({
 
 // Pre-save hook to calculate the totalPaid amount
 schema.pre('save', function (next) {
-    this.totalPaid = this.baseSalary - this.deductions;
+    this.netPay = this.baseSalary - this.deductions;
     next();
 });
 
-module.exports = mongoose.model('payroll', schema)
+const payRollModel = mongoose.model('PayRollData', schema);
+
+export default payRollModel
