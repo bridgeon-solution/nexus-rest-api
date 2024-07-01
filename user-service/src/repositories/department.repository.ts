@@ -11,10 +11,10 @@ class DepartmentRepository {
     return createDepartment
   }
 
-  async findById(departmentId: number) {
+  async findById(departmentId: number) {    
     const department = await prisma.department.findUnique({
       where: { id: departmentId }
-    })
+    })    
     return department
   }
 
