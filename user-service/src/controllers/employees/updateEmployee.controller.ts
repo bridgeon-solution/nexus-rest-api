@@ -13,8 +13,6 @@ const updateEmployee = catchAsync(async (req: Request, res: Response) => {
   employeeData.employeeData.birthdate = new Date(employee.birthdate);
   employeeData.employeeData.departmentId = Number(employee.departmentId);
   employeeData.employeeData.salary = Number(employee.salary);
-  console.log(employeeData);
-
   const updatedEmployee = await updateEmployeeUsecase.updateEmployee(employeeData);
   // console.log(updatedEmployee);
 

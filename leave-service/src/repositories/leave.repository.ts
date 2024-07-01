@@ -1,12 +1,22 @@
 import leaveSchema from "../database/schemas/leave.schema";
+import leaveTypeModel from "../database/schemas/leaveType.schema";
 import { Employee } from "../entities/entityClasses.ts/employee.interface";
-import { AllLeave, LeaveRequest } from "../entities/entityClasses.ts/leave.interface";
+import { AllLeave, LeaveRequest, LeaveType } from "../entities/entityClasses.ts/leave.interface";
 
 class LeaveRepository {
     async createLeave(leaveData: LeaveRequest) {
-        if (leaveData) {
-            const createLeave = await leaveSchema.create(leaveData)
+        try {
+            const createLeave = await leaveSchema.create(leaveData);
             return createLeave;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async createLeaveType(leaveTypeData: LeaveType) {
+        if (leaveTypeData) {
+            const createLeaveType = await leaveTypeModel.create(leaveTypeData)
+            return createLeaveType;
         }
     }
 
@@ -19,7 +29,7 @@ class LeaveRepository {
         let leaveValues: AllLeave;
         const leaves = await leaveSchema.find();
         console.log(leaves);
-        
+
         const data = leaves.map(leaveData => {
             const employee = employees.find(emp => emp.id === leaveData.employeeId);
             if (employee) {
@@ -51,11 +61,15 @@ class LeaveRepository {
     }
 
     async updateLeaveStatus(empId: string, status: string) {
-
-        const approveLeave = await leaveSchema.findOne({ employeeId: empId });
+        const approveLeave = await leaveSchema.findById(empId);
         approveLeave.status = status;
         approveLeave.save();
         return approveLeave
+    }
+
+    async getAllLeaveTypes() {
+        const data = await leaveTypeModel.find({});
+        return data
     }
 
 }

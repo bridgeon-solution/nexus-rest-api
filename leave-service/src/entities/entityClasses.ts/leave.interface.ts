@@ -5,10 +5,16 @@ export interface LeaveRequest {
     endDate: Date,
     reason: string,
     leaveType: string,
-    days: number,
+    days?: number,
     status: string,
     createdAt: Date,
     employeeId: number
+}
+
+export interface LeaveType {
+    name: string,
+    createdAt: Date,
+    updatedAt: Date
 }
 
 export interface AllLeave {

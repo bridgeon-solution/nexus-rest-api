@@ -32,7 +32,7 @@ class Auth {
         where: { email: loginData.email }
       })
       if (employee && !founder) {
-        const isMatch: boolean = await bcrypt.compare(loginData.password, employee.password)
+        const isMatch: boolean = await bcrypt.compare(loginData.password, employee.password);
         if (isMatch) {
           const token: string = generateToken(employee.id, employee.role)
           return { employee, token }

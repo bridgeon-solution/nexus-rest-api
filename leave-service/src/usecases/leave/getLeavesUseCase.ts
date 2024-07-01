@@ -5,7 +5,7 @@ import messageBroker from "../../utils/messageBroker";
 
 class getLeaves {
     constructor() { }
-    
+
     async getAllLeavesById(id: string) {
         const data = await leaveRepository.getAllLeavesById(id);
         return data;
@@ -29,6 +29,11 @@ class getLeaves {
                 reject(error);  // Reject the promise if an error occurs in the initial steps
             }
         });
+    }
+
+    async getAllLeaveType() {
+        const data = await leaveRepository.getAllLeaveTypes();
+        return data
     }
 }
 
