@@ -19,7 +19,7 @@ const verifyRole = (allowedRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const testToken: string = req.headers.authorization // Read the token
     let token: string
-    if (testToken && testToken.startsWith('bearer')) {
+    if (testToken && testToken.startsWith('Bearer')) {
       token = testToken.split(' ')[1]
     }
 

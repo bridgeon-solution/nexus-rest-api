@@ -8,10 +8,10 @@ import findTeamById from '../controllers/team/getTeamById.controller';
 
 const teamRouter: Router = express.Router()
 
-teamRouter.post('/create', verifyRole(['Employee', 'founder']), createTeam)
-teamRouter.delete('/:teamId', verifyRole(['Employee', 'founder']), deleteTeam)
-teamRouter.patch('/:teamId', verifyRole(['Employee', 'founder']), updateTeam)
-teamRouter.get('/:teamId', verifyRole(['Employee', 'founder']), findTeamById)
-teamRouter.get('/teamlead/teams', verifyRole(['Employee', 'founder']), getAllTeamsByTeamLead)
-teamRouter.get('/', verifyRole(['Employee', 'founder']), getAllTeams)
+teamRouter.post('/create', verifyRole(['Employee', 'founder', 'Team Leader']), createTeam)
+teamRouter.delete('/:teamId', verifyRole(['Employee', 'founder', 'Team Leader']), deleteTeam)
+teamRouter.patch('/:teamId', verifyRole(['Employee', 'founder', 'Team Leader']), updateTeam)
+teamRouter.get('/:teamId', verifyRole(['Employee', 'founder', 'Team Leader']), findTeamById)
+teamRouter.get('/teamlead/teams', verifyRole(['Employee', 'founder', 'Team Leader']), getAllTeamsByTeamLead)
+teamRouter.get('/', verifyRole(['Employee', 'founder', 'Team Leader']), getAllTeams)
 export default teamRouter

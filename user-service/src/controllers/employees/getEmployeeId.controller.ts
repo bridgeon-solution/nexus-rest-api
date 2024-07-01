@@ -19,7 +19,7 @@ const getEmployeeById = catchAsync(async (req: Request, res: Response) => {
 
 const listenForEmployeeInfo = async () => {
   await messageBroker.consumeMessage("getEmployeeById", async (data) => {
-      await getEmployeeBrokerUsecase.getAllEmployees()
+    await getEmployeeBrokerUsecase.getAllEmployees()
     // await getEmployeeBrokerUsecase.getEmployeeId(data)
   })
 };
