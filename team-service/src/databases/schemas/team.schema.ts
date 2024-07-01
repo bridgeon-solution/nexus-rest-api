@@ -16,7 +16,6 @@ const teamSchema = new mongoose.Schema({
     {
       type: Number,
       ref: 'Employee',
-      unique: true
     }
   ]
 }, { timestamps: true })

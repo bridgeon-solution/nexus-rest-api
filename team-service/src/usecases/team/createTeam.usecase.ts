@@ -12,6 +12,7 @@ class CreateTeam {
       const createdTeam: Teams = await teamRepository.createTeam(teamDatas)
       return createdTeam
     } catch (error) {
+      console.log(error)
       if (error.message.includes(`duplicate key`))
         throw new CustomError("Team already exists", 500)
     }

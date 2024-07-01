@@ -4,7 +4,6 @@ import catchAsync from "../../utils/asyncErrorHandler";
 import createEmployeesUsecase from "../../usecases/employees/createEmployees.usecase";
 
 
-
 const createEmployee = catchAsync(async (req: Request, res: Response) => {
   const employee: Employee = req.body;
   const salary: number = Number(employee.salary);
@@ -12,7 +11,7 @@ const createEmployee = catchAsync(async (req: Request, res: Response) => {
   employee.salary = salary;
   employee.departmentId = deprtId;
   employee.birthdate = new Date(employee.birthdate);
-  
+
   const createdDepartment: Employee = await createEmployeesUsecase.createEmployee(employee);
   res.status(200).json({
     status: 'success',
