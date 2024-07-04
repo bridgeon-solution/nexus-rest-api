@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { Employee, UpdateEmployees } from "../enitities/entityClasses/employee.interface";
-
+import CustomError from "../utils/customErrorHandler";
 
 const prisma = new PrismaClient()
 
@@ -11,11 +11,23 @@ class EmployeeRepository {
       const createdEmployee: Employee = await prisma.employee.create({
         data: employee,
         include: { department: true }
+      });
+      const permissions = await prisma.permissions.findMany();
+      const createPermissions = permissions.map(permission => {
+        return prisma.employeePermissions.create({
+          data: {
+            employeeId: createdEmployee.id,
+            permissonsId: permission.id,
+            enabled: false
+          }
+        })
       })
+
+      await Promise.all(createPermissions)
       return createdEmployee
     } catch (error) {
       console.log(error);
-      
+      throw new CustomError(error.message, 500)
     }
   }
 
@@ -41,7 +53,7 @@ class EmployeeRepository {
 
   async update(employeeData: UpdateEmployees) {
     const employeeId: number = parseInt(employeeData.employeeId);
-    
+
     const updatedEmployee: Employee = await prisma.employee.update({
       where: { id: employeeId },
       data: employeeData.employeeData
