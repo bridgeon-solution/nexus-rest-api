@@ -1,4 +1,5 @@
 import app from "./app";
+import { listenForLeaveInfo } from "./controllers/employees/employeeDeduction.controller";
 import { listenForEmployeeInfo } from "./controllers/employees/getEmployeeId.controller";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import messageBroker from "./utils/messageBroker";
@@ -6,7 +7,9 @@ app.use(globalErrorHandler)
 
 messageBroker.Connect().then(() => {
   messageBroker.setupQueue("getEmployeeById")
+  messageBroker.setupQueue("deduction")
   listenForEmployeeInfo()
+  listenForLeaveInfo()
 })
 
 app.listen(4000, () => {

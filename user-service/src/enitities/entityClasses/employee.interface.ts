@@ -20,6 +20,13 @@ export interface UpdateEmployees {
   employeeData: Employee
 }
 
+export interface EmployeePagination {
+  data: any,
+  total: number,
+  page?: number,
+  pageSize?: number,
+}
+
 
 export interface LoginData {
   email: string,

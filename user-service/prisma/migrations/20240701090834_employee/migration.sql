@@ -26,6 +26,7 @@ CREATE TABLE `Employee` (
     `password` VARCHAR(191) NOT NULL,
     `image` VARCHAR(191) NOT NULL,
     `birthdate` DATETIME(3) NOT NULL,
+    `deduction` INTEGER NOT NULL,
     `role` VARCHAR(191) NOT NULL,
     `designation` VARCHAR(191) NOT NULL,
     `departmentId` INTEGER NOT NULL,
