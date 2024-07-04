@@ -1,6 +1,8 @@
 import app from "./app";
+import dbConnection from "./databases/connection/database.connection";
 
+dbConnection()
 
-app.listen(4001, () => {
-  console.log(`project-service is listening to 4001`)
+app.listen(4004, () => {
+  console.log(`project-service is listening to 4004`)
 })

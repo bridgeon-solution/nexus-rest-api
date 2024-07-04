@@ -48,17 +48,16 @@ model Employee {
   password            String
   image               String
   birthdate           DateTime
-  deduction           Int
+  deduction           Int                   @default(0)
   role                String
   designation         String
-  leaveBalance        Int                   @default(0)
   department          Department            @relation(fields: [departmentId], references: [id])
   departmentId        Int
   joindate            DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
   Permissons          Permissions[]         @relation("EmployeePermissions")
   EmployeePermissions EmployeePermissions[]
-}
+
 
 model Department {
   id       Int        @id @default(autoincrement())
