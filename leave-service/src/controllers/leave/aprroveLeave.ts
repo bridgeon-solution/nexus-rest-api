@@ -7,7 +7,7 @@ const leaveStatusUpdate = catchAsync(async (req: Request, res: Response) => {
     const url: string = req.url;
     const data = await approveOrRejectLeaveUseCase.updateLeaveStatus(id, url);
     res.status(200).json({
-        status: "Succes",
+        status: "Success",
         data
     })
 })

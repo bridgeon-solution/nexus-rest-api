@@ -30,7 +30,7 @@ model Employee {
   password     String
   image        String
   birthdate    DateTime
-  deduction    Int
+  deduction    Int        @default(0)
   role         String
   designation  String
   department   Department @relation(fields: [departmentId], references: [id])
