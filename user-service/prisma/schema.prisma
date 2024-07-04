@@ -20,24 +20,44 @@ model founders {
   updatedAt   DateTime @updatedAt
 }
 
-model Employee {
-  id           Int        @id @default(autoincrement())
-  fullname     String
-  email        String     @unique
-  phone        String     @unique
-  salary       Int
-  gender       String
-  password     String
-  image        String
-  birthdate    DateTime
-  deduction    Int        @default(0)
-  role         String
-  designation  String
-  department   Department @relation(fields: [departmentId], references: [id])
-  departmentId Int
-  joindate     DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+model Permissions {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @unique
+  employees           Employee[]            @relation("EmployeePermissions")
+  EmployeePermissions EmployeePermissions[]
 }
+
+model EmployeePermissions {
+  id           Int         @id @default(autoincrement())
+  employee     Employee    @relation(fields: [employeeId], references: [id])
+  employeeId   Int
+  permission   Permissions @relation(fields: [permissonsId], references: [id])
+  permissonsId Int
+  enabled      Boolean     @default(false)
+
+  @@unique([employeeId, permissonsId])
+}
+
+model Employee {
+  id                  Int                   @id @default(autoincrement())
+  fullname            String
+  email               String                @unique
+  phone               String                @unique
+  salary              Int
+  gender              String
+  password            String
+  image               String
+  birthdate           DateTime
+  deduction           Int                   @default(0)
+  role                String
+  designation         String
+  department          Department            @relation(fields: [departmentId], references: [id])
+  departmentId        Int
+  joindate            DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  Permissons          Permissions[]         @relation("EmployeePermissions")
+  EmployeePermissions EmployeePermissions[]
+
 
 model Department {
   id       Int        @id @default(autoincrement())
