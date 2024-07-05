@@ -9,6 +9,11 @@ class GetProjects {
         return data
     }
 
+    async getProjectsById(id:string):Promise<ProjectInterface> {
+        const data:ProjectInterface = await projectRepository.getOne(id);
+        return data
+    }
+
 }
 
 export default new GetProjects()

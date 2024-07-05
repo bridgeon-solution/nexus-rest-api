@@ -57,7 +57,7 @@ model Employee {
   updatedAt           DateTime              @updatedAt
   Permissons          Permissions[]         @relation("EmployeePermissions")
   EmployeePermissions EmployeePermissions[]
-
+}
 
 model Department {
   id       Int        @id @default(autoincrement())

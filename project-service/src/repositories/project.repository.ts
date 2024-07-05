@@ -2,7 +2,7 @@ import projectModel from "../databases/schema/project.schema";
 import { ProjectInterface } from "../entities/project/projects.interface";
 
 class Project {
-    async create(projectData: ProjectInterface):Promise<ProjectInterface> {
+    async create(projectData: ProjectInterface): Promise<ProjectInterface> {
         try {
             const data = new projectModel(projectData)
             await data.save();
@@ -12,12 +12,21 @@ class Project {
         }
     }
 
-    async getAll():Promise<ProjectInterface[]> {
+    async getAll(): Promise<ProjectInterface[]> {
         try {
-            const data:ProjectInterface[] = await projectModel.find({});
+            const data: ProjectInterface[] = await projectModel.find({});
             return data
         } catch (error) {
-            
+
+        }
+    }
+
+    async getOne(id: string): Promise<ProjectInterface> {
+        try {
+            const data: ProjectInterface = await projectModel.findById(id);
+            return data
+        } catch (error) {
+
         }
     }
 }

@@ -13,7 +13,7 @@ const createProject = catchAsync((async (req: Request, res: Response) => {
     const data:ProjectInterface = await createProjectUsecase.createProject(projectData);
     if (data) {
         res.status(201).json({
-            status:"message",
+            status:"success",
             data
         })
     } else {

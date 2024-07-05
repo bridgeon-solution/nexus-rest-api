@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { Employee, UpdateEmployees } from "../enitities/entityClasses/employee.interface";
 import CustomError from "../utils/customErrorHandler";
-import { Employee, EmployeePagination, UpdateEmployees } from "../enitities/entityClasses/employee.interface";
+import { EmployeePagination } from "../enitities/entityClasses/employee.interface";
 
 
 const prisma = new PrismaClient()
