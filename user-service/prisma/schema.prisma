@@ -29,9 +29,9 @@ model Permissions {
 
 model EmployeePermissions {
   id           Int         @id @default(autoincrement())
-  employee     Employee    @relation(fields: [employeeId], references: [id])
+  employee     Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   employeeId   Int
-  permission   Permissions @relation(fields: [permissonsId], references: [id])
+  permission   Permissions @relation(fields: [permissonsId], references: [id], onDelete: Cascade)
   permissonsId Int
   enabled      Boolean     @default(false)
 
@@ -51,13 +51,13 @@ model Employee {
   deduction           Int                   @default(0)
   role                String
   designation         String
-  department          Department            @relation(fields: [departmentId], references: [id])
+  department          Department            @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   departmentId        Int
   joindate            DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
   Permissons          Permissions[]         @relation("EmployeePermissions")
   EmployeePermissions EmployeePermissions[]
-
+}
 
 model Department {
   id       Int        @id @default(autoincrement())
