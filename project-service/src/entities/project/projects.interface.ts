@@ -10,6 +10,7 @@ interface ProjectInterface {
     progress:number;
     status: 'Not Started' | 'In Progress' | 'Completed';
     team: string;
+    tasks: [string];
 }
 
 export {

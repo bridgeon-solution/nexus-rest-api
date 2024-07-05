@@ -6,7 +6,7 @@ import messageBroker from "./utils/messageBroker";
 app.use(globalErrorHandler)
 
 messageBroker.Connect().then(() => {
-  messageBroker.setupQueue("getEmployeeById")
+  messageBroker.setupQueue("getEmployees")
   messageBroker.setupQueue("deduction")
   listenForEmployeeInfo()
   listenForLeaveInfo()

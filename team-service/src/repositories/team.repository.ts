@@ -23,7 +23,9 @@ class TeamRepository {
   }
 
   async allTeams(): Promise<Teams[]> {
-    const allTeams = await team.find()
+    const allTeams = await team.find();
+    console.log(allTeams);
+    
     return allTeams as unknown as Teams[]
   }
 

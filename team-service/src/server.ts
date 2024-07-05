@@ -10,12 +10,12 @@ dbConnection()
 //   console.log(data)
 // }
 
-// messageBroker.Connect().then(() => {
-//   SendmessageBroker()
-//   messageBroker.setupQueue("EmployeeId")
-//   messageBroker.listenForResponse("EmployeeId")
-//   messageBroker.on("dataRecieved  ", eventListener)
-// })
+messageBroker.Connect().then(() => {
+  SendmessageBroker()
+  messageBroker.setupQueue("EmployeeId")
+  messageBroker.listenForResponse("EmployeeId")
+  // messageBroker.on("dataRecieved  ", eventListener)
+})
 
 app.use(globalErrorHandler)
 

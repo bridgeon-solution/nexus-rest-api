@@ -33,7 +33,11 @@ const schema = new mongoose.Schema<ProjectInterface>({
     team: {
         type: String, ref: 'Team'
 
-    }
+    },
+    tasks: [{
+        type: String,
+        ref: 'Task'
+    }]
 }, { timestamps: true })
 
 const projectModel = mongoose.model('Project', schema);
