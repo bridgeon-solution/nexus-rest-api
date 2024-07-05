@@ -23,8 +23,8 @@ class EmployeeRepository {
             permissonsId: permission.id,
             enabled: false
           }
-        })
-      })
+        });
+      });
 
       await Promise.all(createPermissions)
       return createdEmployee
@@ -38,6 +38,9 @@ class EmployeeRepository {
     const deleteEmployee: Employee = await prisma.employee.delete({
       where: { id: employeeId }
     });
+    await prisma.employeePermissions.deleteMany({
+      where: { employeeId: employeeId }
+    })
     return deleteEmployee
   }
 
@@ -49,26 +52,24 @@ class EmployeeRepository {
     return employee
   }
 
-  async findAll():Promise<Employee[]> {
-
+  async findAll(): Promise<Employee[]> {
     try {
       const employees: Employee[] = await prisma.employee.findMany(
         { include: { department: true } })
       return employees
-
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
     }
   }
 
-  async paginatedFindAll(skip: number, take: number):Promise<EmployeePagination> {
+  async paginatedFindAll(skip: number, take: number): Promise<EmployeePagination> {
 
     try {
       const employee = await prisma.employee.findMany({
         skip,
         take,
-        include:{department: true}
-        
+        include: { department: true }
+
       })
       const totalEmployees = await prisma.employee.count();
 
@@ -89,7 +90,6 @@ class EmployeeRepository {
 
   async update(employeeData: UpdateEmployees) {
     const employeeId: number = parseInt(employeeData.employeeId);
-
     const updatedEmployee: Employee = await prisma.employee.update({
       where: { id: employeeId },
       data: employeeData.employeeData
@@ -103,7 +103,6 @@ class EmployeeRepository {
       data: { deduction }
     })
   }
-
 }
 
 export default new EmployeeRepository()

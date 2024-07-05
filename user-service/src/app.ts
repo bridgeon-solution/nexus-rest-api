@@ -18,6 +18,4 @@ app.use('/api/v1/departments', departmentRouter);
 app.use('/api/v1/users', authRouter)
 app.use('/api/v1/permission', permissionRouter)
 
-
-
 export default app
