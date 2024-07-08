@@ -6,6 +6,10 @@ const schema = new mongoose.Schema<ProjectInterface>({
         type: String, required: true
 
     },
+    teamLeadId: {
+        type: String,
+        required: true
+    },
     image: {
         type: String,
     },
@@ -32,7 +36,6 @@ const schema = new mongoose.Schema<ProjectInterface>({
     },
     team: {
         type: String, ref: 'Team'
-
     },
     tasks: [{
         type: String,
