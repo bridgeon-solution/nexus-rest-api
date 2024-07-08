@@ -4,7 +4,11 @@ import getProjectTeamUsecase from "../../usecases/projects/getProjectTeam.usecas
 
 const getTeamDetails = catchAsync(async (req: Request, res: Response) => {
     const projectId: string = req.params.id;
-    const data = await getProjectTeamUsecase.getTeam(projectId)
+    const data = await getProjectTeamUsecase.getTeam(projectId);
+    res.status(200).json({
+        status:"success",
+        data
+    })
 })
 
 export { getTeamDetails }

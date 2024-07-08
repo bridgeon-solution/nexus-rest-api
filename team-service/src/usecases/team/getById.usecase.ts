@@ -6,6 +6,7 @@ class TeamById {
   async findTeamById(teamId: string): Promise<Teams> {
     try {
       const teamById: Teams = await teamRepository.teamById(teamId);
+      
       return teamById
     } catch (error) {
 
