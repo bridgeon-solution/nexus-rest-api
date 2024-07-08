@@ -1,4 +1,4 @@
-import { ProjectInterface } from "../../entities/project/projects.interface"
+import { ProjectDetailedInterface, ProjectInterface, TeamWithMembers } from "../../entities/project/projects.interface"
 import projectRepository from "../../repositories/project.repository"
 import messageBroker from "../../utils/messageBroker";
 
@@ -7,20 +7,19 @@ class GetProjectTeam {
 
     async getTeam(projectId: string) {
         const project: ProjectInterface = await projectRepository.getOne(projectId);
-        try {
+        return new Promise(async (resolve, reject) => {
             await messageBroker.sendMessage("project", project.team);
             await messageBroker.listenForResponse("projectResponse")
-            messageBroker.on("dataRecieved", async (data: { status: string, data: any }) => {
+            messageBroker.on("dataRecieved", async (receivedData: { status: string, teamMembersData: TeamWithMembers }) => {
                 try {
-                    console.log(data);
-                    
+                    // console.log(data.teamMembersData);
+                    const data: ProjectDetailedInterface = { project, team: receivedData.teamMembersData.team, members: receivedData.teamMembersData.members };
+                    resolve(data);
                 } catch (error) {
 
                 }
             })
-        } catch (error) {
-
-        }
+        })
     }
 }
 

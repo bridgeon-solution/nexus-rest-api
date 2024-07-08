@@ -103,7 +103,6 @@ class MessageBroker {
   // }
 
   async consumeMessage(queue, callback) {
-    this.Connect()
     if (!this.channel) {
       console.log("No RabbitMQ Channel Available")
       return

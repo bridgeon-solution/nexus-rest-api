@@ -12,9 +12,9 @@ dbConnection()
 // }
 
 messageBroker.Connect().then(() => {
-  //SendmessageBroker()
   messageBroker.setupQueue("members")
   messageBroker.setupQueue("project")
+  messageBroker.setupQueue("EmployeeById")
   messageBroker.setupQueue("teamMembers")
   listenForTeamInfo()
 })
