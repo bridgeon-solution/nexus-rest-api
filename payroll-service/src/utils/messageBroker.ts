@@ -4,15 +4,19 @@ import CustomError from './customErrorHandler';
 
 
 class MessageBroker {
-  private connection: any;
-  private channel: any;
+  private connection: amqp.Connection;
+  private channel: amqp.Channel;
   private eventEmitter: EventEmitter = new EventEmitter();
+  private queues: Record<string, string> = {};
   private responseSent: boolean;
   constructor() {
     this.eventEmitter = new EventEmitter();
     this.responseSent = false
   }
 
+  // private handleChannelError(Error) {
+  //   console.error("Error with RabbitMQ Channel : ", Error)
+  // }
 
   async Connect(): Promise<void> {
     console.log("Connecting to RabbitMQ");
@@ -20,7 +24,7 @@ class MessageBroker {
       this.connection = await amqp.connect('amqp://localhost');
       this.channel = await this.connection.createChannel();
       console.log(`Connected RabbitMQ successfully`);
-    } catch (error: any) {
+    } catch (error) {
       console.log("Failed to Connnect to RabbitMQ : ", error.message)
     }
   }
@@ -37,14 +41,15 @@ class MessageBroker {
     try {
       await this.channel.assertQueue(queueName);
       console.log(`asserting Message ${queueName} queue`);
-    } catch (error: any) {
+    } catch (error) {
       console.log('Error asserting queue', error)
     }
   }
 
   async listenForResponse(queueName: string) {
-    await this.channel.consume(queueName, async (message: any) => {
-      if (message !== null) {
+    
+    await this.channel.consume(queueName, async (message) => {
+      if (message !== null) {        
         const response = message.content.toString();
         if (response) {
           try {
@@ -60,7 +65,7 @@ class MessageBroker {
               this.eventEmitter.emit(`dataRecievedError`, error);
               this.channel.ack(message)
             }
-          } catch (error: any) {
+          } catch (error) {
             console.log(`Error processing ${queueName} response : `, error)
           }
         }
@@ -103,20 +108,19 @@ class MessageBroker {
   // }
 
   async consumeMessage(queue, callback) {
-    this.Connect()
     if (!this.channel) {
       console.log("No RabbitMQ Channel Available")
       return
     }
     try {
-      await this.channel.consume(queue, async (message) => {
+      (await this.channel).consume(queue, async (message) => {
         if (!message) {
           console.log("Recieved null message from RabbitMQ")
         }
         const content = message.content.toString();
         const parsedContent = JSON.parse(content)
         callback(parsedContent);
-        await this.channel.ack(message)
+        (await this.channel).ack(message)
       });
 
     } catch (error) {

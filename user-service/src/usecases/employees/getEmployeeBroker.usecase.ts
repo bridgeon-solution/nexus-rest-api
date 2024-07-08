@@ -11,7 +11,8 @@ class GetEmployeeBroker {
         status: 'success',
         employee: employee
       }
-      await messageBroker.sendMessage("EmployeeId", data)
+
+      await messageBroker.sendMessage("EmployeeById", data)
       if (!employee) {
         throw new Error("Employee Not Found")
       }
@@ -30,8 +31,11 @@ class GetEmployeeBroker {
       const data = {
         status: 'success',
         employee: employee
-      }      
-      await messageBroker.sendMessage("EmployeeId", data)
+      }
+
+      await messageBroker.sendMessage("EmployeeId", data);
+      await messageBroker.sendMessage("Employees", data);
+
       if (!employee) {
         throw new Error("Employee Not Found")
       }
@@ -42,6 +46,27 @@ class GetEmployeeBroker {
         message: error.message
       }
       await messageBroker.sendMessage("EmployeeId", data)
+    }
+  }
+
+  async getTeamMeambers(ids: number[]) {
+    try {
+      const members = await employeesRepository.getTeamMembers(ids);
+      console.log(members);
+      const data = {
+        status: 'success',
+        employee: members
+      }
+      await messageBroker.sendMessage('teamMembers', data)
+      if (!members) {
+        new CustomError('Something wrong', 404)
+      }
+    } catch (error) {
+      const data = {
+        status: 'failed',
+        message: error.message
+      }
+      await messageBroker.sendMessage("teamMembers", data);
     }
   }
 }

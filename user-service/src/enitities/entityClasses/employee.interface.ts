@@ -13,6 +13,7 @@ export interface Employee {
   departmentId?: number; // Optional for new employee creation
   joindate?: Date; // Optional for new employee creation
   updatedAt?: Date; // Optional for new employee creation
+  isgenerate: boolean;
 }
 
 export interface UpdateEmployees {

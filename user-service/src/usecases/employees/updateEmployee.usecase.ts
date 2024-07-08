@@ -48,6 +48,11 @@ class UpdateEmployee {
 
   }
 
+  async generatePaySlip(id: string):Promise<Employee> {
+    const generate:Employee = await employeesRepository.updateIsGenerate(id);
+    return generate
+  }
+
 }
 
 export default new UpdateEmployee()

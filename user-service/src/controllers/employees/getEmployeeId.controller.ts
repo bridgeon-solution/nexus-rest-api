@@ -23,9 +23,20 @@ const listenForEmployeeInfo = async () => {
     //await getEmployeeBrokerUsecase.getEmployeeId(data)
   })
 };
+const listenForEmployeeInfoById = async () => {
+  await messageBroker.consumeMessage("getEmployeeById", async (data) => {
+    let id: number = Number(data);
+    await getEmployeeBrokerUsecase.getEmployeeId(id);
+  })
+};
+const listenForEmployeeInfoByTeam = async () => {
+  await messageBroker.consumeMessage("members", async (data) => {
+    await getEmployeeBrokerUsecase.getTeamMeambers(data);
+  })
+};
 
 
 
-export { getEmployeeById, listenForEmployeeInfo };
+export { getEmployeeById, listenForEmployeeInfo, listenForEmployeeInfoById, listenForEmployeeInfoByTeam };
 
 
