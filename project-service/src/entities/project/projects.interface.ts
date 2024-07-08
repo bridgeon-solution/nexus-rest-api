@@ -3,6 +3,7 @@ import { ObjectId, Types } from "mongoose";
 interface ProjectInterface {
     _id: Types.ObjectId;
     name: string;
+    teamLeadId: string
     image: string;
     description?: string;
     startDate: Date;
