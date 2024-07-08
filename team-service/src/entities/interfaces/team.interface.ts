@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose"
+import { Employee } from "./employee.interface"
 
 interface Team {
   teamLead: number,
@@ -19,5 +20,9 @@ interface Teams {
   createdAt: Date,
   __v?: number
 }
+interface TeamWithMembers {
+  team:Teams,
+  members: Employee[],
+}
 
-export { Team, Teams, TeamBody }
+export { Team, Teams, TeamBody, TeamWithMembers }

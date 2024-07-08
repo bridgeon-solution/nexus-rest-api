@@ -31,6 +31,7 @@ class TeamRepository {
 
   async teamById(teamId: string): Promise<Teams> {
     const teambyId = await team.findById(teamId);
+    
     return teambyId as unknown as Teams
   }
 
@@ -38,6 +39,7 @@ class TeamRepository {
     const allTeams = await team.find({ teamLead: teamLeadId });
     return allTeams as unknown as Teams[]
   }
+  
 }
 
 export default new TeamRepository()

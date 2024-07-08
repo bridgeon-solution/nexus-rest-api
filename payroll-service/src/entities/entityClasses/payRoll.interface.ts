@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose";
+import { Employee } from "./employee.interface";
 
 export interface PayRoll {
     employeeId: number,
@@ -8,4 +9,9 @@ export interface PayRoll {
     netPay: number,
     note?: string,
     timestamps: boolean
+}
+
+export interface PayRollEmployee {
+    pX: PayRoll;
+    findedEmployess: Employee;
 }

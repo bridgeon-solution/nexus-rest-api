@@ -53,8 +53,10 @@ model Employee {
   designation         String
   department          Department            @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   departmentId        Int
+  leaveBalance        Int                   @default( 0)
   joindate            DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
+  isgenerate          Boolean               @default(false)
   Permissons          Permissions[]         @relation("EmployeePermissions")
   EmployeePermissions EmployeePermissions[]
 }

@@ -102,27 +102,27 @@ class MessageBroker {
   //   }
   // }
 
-  async consumeMessage(queue, callback) {
-    this.Connect()
-    if (!this.channel) {
-      console.log("No RabbitMQ Channel Available")
-      return
-    }
-    try {
-      await this.channel.consume(queue, async (message) => {
-        if (!message) {
-          console.log("Recieved null message from RabbitMQ")
-        }
-        const content = message.content.toString();
-        const parsedContent = JSON.parse(content)
-        callback(parsedContent);
-        await this.channel.ack(message)
-      });
+  // async consumeMessage(queue, callback) {
+  //   this.Connect()
+  //   if (!this.channel) {
+  //     console.log("No RabbitMQ Channel Available")
+  //     return
+  //   }
+  //   try {
+  //     await this.channel.consume(queue, async (message) => {
+  //       if (!message) {
+  //         console.log("Recieved null message from RabbitMQ")
+  //       }
+  //       const content = message.content.toString();
+  //       const parsedContent = JSON.parse(content)
+  //       callback(parsedContent);
+  //       await this.channel.ack(message)
+  //     });
 
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
 }
 

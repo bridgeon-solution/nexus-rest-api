@@ -103,6 +103,23 @@ class EmployeeRepository {
       data: { deduction }
     })
   }
+
+  async updateIsGenerate(id: string): Promise<Employee> {
+    const empId: number = parseInt(id);
+    const data = await prisma.employee.update({
+      where: { id: empId },
+      data: { isgenerate: true }
+    })
+    console.log("data", data);
+
+    return data;
+  }
+  async getTeamMembers(ids: number[]):Promise<Employee[]> {
+    const data = await prisma.employee.findMany({
+      where: { id: { in: ids } }
+    });
+    return data
+  }
 }
 
 export default new EmployeeRepository()

@@ -1,8 +1,13 @@
 import app from "./app";
 import dbConnection from "./databases/connection/database.connection";
 import globalErrorHandler from "./middleware/globalErrorHandler";
+import messageBroker from "./utils/messageBroker";
 
 dbConnection()
+
+messageBroker.Connect().then(()=>{
+  messageBroker.setupQueue("projectResponse")
+})
 
 app.use(globalErrorHandler)
 
