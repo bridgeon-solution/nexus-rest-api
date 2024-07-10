@@ -5,7 +5,7 @@ import { ProjectInterface } from "../../entities/project/projects.interface";
 
 const getProjectById = catchAsync((async (req: Request, res: Response) => {
     const projectId: string = req.params.id;
-    const data: ProjectInterface = await getProjectsUsecase.getProjectsById(projectId);
+    const data = await getProjectsUsecase.getProjectsById(projectId);
 
     if (data) {
         res.status(200).json({
