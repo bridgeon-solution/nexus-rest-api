@@ -11,7 +11,6 @@ class GetEmployeeBroker {
         status: 'success',
         employee: employee
       }
-
       await messageBroker.sendMessage("EmployeeById", data)
       if (!employee) {
         throw new Error("Employee Not Found")
@@ -52,7 +51,6 @@ class GetEmployeeBroker {
   async getTeamMeambers(ids: number[]) {
     try {
       const members = await employeesRepository.getTeamMembers(ids);
-      console.log(members);
       const data = {
         status: 'success',
         employee: members

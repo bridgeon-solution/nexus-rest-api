@@ -4,8 +4,6 @@ import messageBroker from "../../utils/messageBroker";
 import getLeavesUseCase from "../../usecases/leave/getLeavesUseCase";
 
 const getAllLeaves = catchAsync(async (req: Request, res: Response) => {
-    console.log('skskd');
-
     const data = await getLeavesUseCase.getAllLeaves();
     console.log(data);
     

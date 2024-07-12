@@ -13,6 +13,7 @@ model founders {
   email       String   @unique
   companyname String
   image       String
+  googleId    String   @unique @default("null")
   role        String   @default("founder")
   ispaid      Boolean  @default(false)
   password    String
@@ -53,7 +54,7 @@ model Employee {
   designation         String
   department          Department            @relation(fields: [departmentId], references: [id], onDelete: Cascade)
   departmentId        Int
-  leaveBalance        Int                   @default( 0)
+  leaveBalance        Int                   @default(0)
   joindate            DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
   isgenerate          Boolean               @default(false)

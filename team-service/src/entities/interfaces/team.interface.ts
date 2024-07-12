@@ -21,8 +21,13 @@ interface Teams {
   __v?: number
 }
 interface TeamWithMembers {
-  team:Teams,
+  team: Teams,
   members: Employee[],
 }
 
-export { Team, Teams, TeamBody, TeamWithMembers }
+interface TeamWithTeamLeader {
+  team: Teams[],
+  teamLeader: Employee,
+}
+
+export { Team, Teams, TeamBody, TeamWithMembers, TeamWithTeamLeader }
