@@ -4,7 +4,6 @@ import messageBroker from "../../utils/messageBroker";
 
 class GetProjectTeam {
     constructor() { }
-
     async getTeam(projectId: string) {
         const project: ProjectInterface = await projectRepository.getOne(projectId);
         return new Promise(async (resolve, reject) => {
@@ -12,7 +11,6 @@ class GetProjectTeam {
             await messageBroker.listenForResponse("projectResponse")
             messageBroker.on("dataRecieved", async (receivedData: { status: string, teamMembersData: TeamWithMembers }) => {
                 try {
-                    // console.log(data.teamMembersData);
                     const data: ProjectDetailedInterface = { project, team: receivedData.teamMembersData.team, members: receivedData.teamMembersData.members };
                     resolve(data);
                 } catch (error) {

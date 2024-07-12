@@ -11,8 +11,7 @@ const projectRouter: Router = expres.Router();
 projectRouter.post('/create/:id', projectLogo, createProject)
 projectRouter.get('/', getAllProjects)
 projectRouter.get('/:id', getProjectById)
-projectRouter.get('/team-details/:id', getTeamDetails)
-
+projectRouter.get('/team-details/:projectId', getTeamDetails)
 projectRouter.get('/teamLead/:teamLeadId', getProjectByTeamLead)
 
 export default projectRouter

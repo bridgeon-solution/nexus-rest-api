@@ -3,7 +3,6 @@ import { Employee, UpdateEmployees } from "../enitities/entityClasses/employee.i
 import CustomError from "../utils/customErrorHandler";
 import { EmployeePagination } from "../enitities/entityClasses/employee.interface";
 
-
 const prisma = new PrismaClient()
 
 class EmployeeRepository {
