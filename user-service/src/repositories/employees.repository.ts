@@ -114,8 +114,15 @@ class EmployeeRepository {
     return data;
   }
   async getTeamMembers(ids: number[]): Promise<Employee[]> {
+    let employeeIds: number[] = [];
+    for (const i of ids) {
+      if (i) {
+        employeeIds.push(i)
+      }
+    }
     const data = await prisma.employee.findMany({
-      where: { id: { in: ids } }
+      where: { id: { in: employeeIds } },
+      include: { department: true }
     });
     return data
   }

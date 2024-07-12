@@ -25,6 +25,11 @@ class LeaveRepository {
         return allLeaves;
     }
 
+    async deleteLeave(id: number) {
+        const deleteLeave = await leaveSchema.deleteMany({ employeeId: id });
+        return deleteLeave;
+    }
+
     async getAllLeaves(employees: Employee[]) {
         let leaveValues: AllLeave;
         const leaves = await leaveSchema.find();

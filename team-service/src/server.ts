@@ -7,14 +7,10 @@ import messageBroker from "./utils/messageBroker";
 
 dbConnection()
 
-// const eventListener = async (data: any) => {
-//   console.log(data)
-// }
-
 messageBroker.Connect().then(() => {
+  messageBroker.setupQueue("getEmployees")
   messageBroker.setupQueue("members")
   messageBroker.setupQueue("project")
-  messageBroker.setupQueue("EmployeeById")
   messageBroker.setupQueue("teamMembers")
   listenForTeamInfo()
 })

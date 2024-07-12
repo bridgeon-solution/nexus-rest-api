@@ -5,6 +5,7 @@ CREATE TABLE `founders` (
     `email` VARCHAR(191) NOT NULL,
     `companyname` VARCHAR(191) NOT NULL,
     `image` VARCHAR(191) NOT NULL,
+    `googleId` VARCHAR(191) NOT NULL DEFAULT 'null',
     `role` VARCHAR(191) NOT NULL DEFAULT 'founder',
     `ispaid` BOOLEAN NOT NULL DEFAULT false,
     `password` VARCHAR(191) NOT NULL,
@@ -12,6 +13,7 @@ CREATE TABLE `founders` (
     `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `founders_email_key`(`email`),
+    UNIQUE INDEX `founders_googleId_key`(`googleId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -50,8 +52,10 @@ CREATE TABLE `Employee` (
     `role` VARCHAR(191) NOT NULL,
     `designation` VARCHAR(191) NOT NULL,
     `departmentId` INTEGER NOT NULL,
+    `leaveBalance` INTEGER NOT NULL DEFAULT 0,
     `joindate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
+    `isgenerate` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Employee_email_key`(`email`),
     UNIQUE INDEX `Employee_phone_key`(`phone`),

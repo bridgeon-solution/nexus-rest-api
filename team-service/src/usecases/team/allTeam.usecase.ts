@@ -21,23 +21,20 @@ class AllTeams {
   async getAllTeamsByTeamLead(teamLeadId: number): Promise<Teams[]> {
     try {
       const allTeams: Teams[] = await teamRepository.allTeamsTL(teamLeadId);
-      // console.log(allTeams);
-      await messageBroker.sendMessage("getEmployeeById",5)
+      await messageBroker.sendMessage("getEmployeeById", teamLeadId);
       await messageBroker.listenForResponse("EmployeeById");
-      messageBroker.on("dataRecieved", async (data: { status: string, employee: Employee[] }) => {
+
+      messageBroker.on("dataRecieved", async (data: { status: string, employee: Employee }) => {
         try {
-          console.log(data);
-          
-          // const teamMembersData: TeamWithMembers = { team: teamData, members: data.employee };
-          // resolve(teamMembersData);  // Resolve the promise with leaveData
+          // console.log(data.employee);
+
         } catch (error) {
-          console.log(error);
           // reject(error);  // Reject the promise if an error occurs
         }
       });
       return allTeams
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new CustomError(error.message, 500)
     }
   }

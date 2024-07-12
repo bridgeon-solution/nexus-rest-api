@@ -1,4 +1,5 @@
 import express, { Router } from 'express'
+import passport from 'passport';
 import { createEmployee } from '../controllers/employees/createEmployee.controller';
 import { getAllEmployeesPaginate } from '../controllers/employees/getAllEmployeesPaginated.controller';
 import { getEmployeeById } from '../controllers/employees/getEmployeeId.controller';
@@ -16,6 +17,6 @@ employeesRouter.get('/all', getAllEmployees);
 employeesRouter.get('/:id', getEmployeeById);
 employeesRouter.delete('/:id', deleteEmployee);
 employeesRouter.get('/generate-paySlip/:id', generatePaySlip);
-employeesRouter.patch('/:id', profileImgUpload, updateEmployee)
+employeesRouter.patch('/:id', profileImgUpload, updateEmployee);
 
 export default employeesRouter

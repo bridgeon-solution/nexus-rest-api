@@ -19,6 +19,8 @@ class getLeaves {
 
                 messageBroker.on("dataRecieved", async (data: { status: string, employee: [Employee] }) => {
                     try {
+                        console.log(data.employee);
+                        
                         const leaveData = await leaveRepository.getAllLeaves(data.employee);
                         resolve(leaveData);  // Resolve the promise with leaveData
                     } catch (error) {
