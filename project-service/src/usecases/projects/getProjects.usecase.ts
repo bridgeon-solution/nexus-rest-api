@@ -1,16 +1,17 @@
-import { ProjectInterface } from "../../entities/project/projects.interface";
+import { ProjectDetailedInterface, ProjectInterface } from "../../entities/project/projects.interface";
 import projectRepository from "../../repositories/project.repository";
 import { generateLogo } from "../../utils/projectLogoGeneration";
+import getProjectTeamUsecase from "./getProjectTeam.usecase";
 
 class GetProjects {
-
-    async getAllProjects():Promise<ProjectInterface[]> {
-        const data:ProjectInterface[] = await projectRepository.getAll();
+    // fucntion for getting all Projects
+    async getAllProjects(): Promise<ProjectInterface[]> {
+        const data: ProjectInterface[] = await projectRepository.getAll();
         return data
     }
-
-    async getProjectsById(id:string):Promise<ProjectInterface> {
-        const data:ProjectInterface = await projectRepository.getOne(id);
+    // function for getting project by id (specific project)
+    async getProjectsById(id: string): Promise<ProjectInterface> {
+        const data: ProjectInterface = await projectRepository.getOne(id);
         return data
     }
 

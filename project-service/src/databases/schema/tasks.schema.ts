@@ -11,7 +11,7 @@ const taskSchema = new mongoose.Schema<Tasks>({
     required: true
   },
   assignedTo: {
-    type: String,
+    type: Number,
     required: true,
   },
   status: {
