@@ -4,7 +4,7 @@ import { listenForEmployeeInfo, listenForEmployeeInfoById, listenForEmployeeInfo
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import messageBroker from "./utils/messageBroker";
 import './utils/croneJob'; // Import the cron job to initialize it
-import './utils/auth2.O'
+// import './utils/auth2.O'
 
 app.use(globalErrorHandler)
 
@@ -23,5 +23,4 @@ messageBroker.Connect().then(() => {
 
 app.listen(4000, () => {
   console.log('user service is listening to 4000')
-
 })
