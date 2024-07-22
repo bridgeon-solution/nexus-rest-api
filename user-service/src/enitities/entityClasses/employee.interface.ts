@@ -13,11 +13,19 @@ export interface Employee {
   departmentId?: number; // Optional for new employee creation
   joindate?: Date; // Optional for new employee creation
   updatedAt?: Date; // Optional for new employee creation
+  isgenerate: boolean;
 }
 
 export interface UpdateEmployees {
   employeeId: string,
-  employeeData: any
+  employeeData: Employee
+}
+
+export interface EmployeePagination {
+  data: any,
+  total: number,
+  page?: number,
+  pageSize?: number,
 }
 
 

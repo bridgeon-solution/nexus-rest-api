@@ -6,16 +6,18 @@ WORKDIR /app
 # This command will set the default directory as /home/app.
 # Hence, the next commands will start executing from the /home/app directory of the Alpine image.
 
+
 COPY package.json .
 # To copy both package.json and package-lock.json to the working directory (/home/app) of the Alpine image.
 RUN npm install
 # This will create a node_modules folder in /home/app 
-# And it will install all the dependencies specified in the package.json file.
 
+
+# And it will install all the dependencies specified in the package.json file.
 
 COPY . .
 
-
+RUN npx prisma generate 
 # Here “.” represents the current working directory.
 # This command will copy all files in the current directory to the working directory (/home/app) of the Alpine image.
 EXPOSE 4000

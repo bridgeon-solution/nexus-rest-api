@@ -5,12 +5,17 @@ import updateEmployeeUsecase from "../../usecases/employees/updateEmployee.useca
 
 const updateEmployee = catchAsync(async (req: Request, res: Response) => {
   const employeeId: string = req.params.id
-  const employee = req.body;
+  const employee: Employee = req.body;
   const employeeData: UpdateEmployees = {
     employeeId: employeeId,
     employeeData: employee
   }
+  employeeData.employeeData.birthdate = new Date(employee.birthdate);
+  employeeData.employeeData.departmentId = Number(employee.departmentId);
+  employeeData.employeeData.salary = Number(employee.salary);
   const updatedEmployee = await updateEmployeeUsecase.updateEmployee(employeeData);
+  // console.log(updatedEmployee);
+
   res.status(200).json({
     status: 'success',
     data: updatedEmployee

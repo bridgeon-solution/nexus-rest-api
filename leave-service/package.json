@@ -1,25 +1,39 @@
 {
   "name": "leave-service",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev src/server.ts"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.15.0",
-    "@types/cors": "^2.8.17",
+    "@prisma/client": "^5.13.0",
+    "@types/amqplib": "^0.10.5",
+    "@types/bcrypt": "^5.0.2",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
-    "axios": "^1.7.2",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
+    "@types/stripe": "^8.0.417",
+    "amqplib": "^0.10.4",
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.2.0",
     "cors": "^2.8.5",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
-  },
-  "description": "",
-  "devDependencies": {
     "express": "^4.19.2",
-    "prisma": "^5.15.0"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.3",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.7",
+    "sequelize": "^6.37.3",
+    "stripe": "^15.6.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }

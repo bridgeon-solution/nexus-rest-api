@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import catchAsync from "../../utils/asyncErrorHandler";
 import { LeaveRequest } from "../../entities/entityClasses.ts/leave.interface";
 import createLeaveUsecase from "../../usecases/leave/createLeave.usecase.";
+import messageBroker from "../../utils/messageBroker";
 
 
 const createLeave = catchAsync(async (req: Request, res: Response) => {
@@ -16,5 +17,11 @@ const createLeave = catchAsync(async (req: Request, res: Response) => {
         data: createLeave
     })
 })
+
+const listenForEmployeeInfo = async () => {
+    await messageBroker.consumeMessage("getEmployeeById", async (data) => {
+        
+    })
+};
 
 export { createLeave }

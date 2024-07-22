@@ -18,8 +18,6 @@ class Auth {
       })
       if (founder) {
         const isMatch: boolean = await bcrypt.compare(loginData.password, founder.password);
-        console.log(founder.ispaid);
-        
         if (isMatch) {
           const token: string = generateToken(founder.id, founder.role)
           return { founder, token } // early return successfull founder login
@@ -34,7 +32,7 @@ class Auth {
         where: { email: loginData.email }
       })
       if (employee && !founder) {
-        const isMatch: boolean = await bcrypt.compare(loginData.password, employee.password)
+        const isMatch: boolean = await bcrypt.compare(loginData.password, employee.password);
         if (isMatch) {
           const token: string = generateToken(employee.id, employee.role)
           return { employee, token }

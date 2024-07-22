@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model founders {
+  id          Int      @id @default(autoincrement())
+  fullname    String
+  email       String   @unique
+  companyname String
+  image       String
+  googleId    String   @unique @default("null")
+  role        String   @default("founder")
+  ispaid      Boolean  @default(false)
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Permissions {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @unique
+  employees           Employee[]            @relation("EmployeePermissions")
+  EmployeePermissions EmployeePermissions[]
+}
+
+model EmployeePermissions {
+  id           Int         @id @default(autoincrement())
+  employee     Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employeeId   Int
+  permission   Permissions @relation(fields: [permissonsId], references: [id], onDelete: Cascade)
+  permissonsId Int
+  enabled      Boolean     @default(false)
+
+  @@unique([employeeId, permissonsId])
+}
+
+model Employee {
+  id                  Int                   @id @default(autoincrement())
+  fullname            String
+  email               String                @unique
+  phone               String                @unique
+  salary              Int
+  gender              String
+  password            String
+  image               String
+  birthdate           DateTime
+  deduction           Int                   @default(0)
+  role                String
+  designation         String
+  department          Department            @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  departmentId        Int
+  leaveBalance        Int                   @default(0)
+  joindate            DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  isgenerate          Boolean               @default(false)
+  Permissons          Permissions[]         @relation("EmployeePermissions")
+  EmployeePermissions EmployeePermissions[]
+}
+
+model Department {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  Employee Employee[]
+}

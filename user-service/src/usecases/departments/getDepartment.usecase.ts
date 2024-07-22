@@ -9,8 +9,8 @@ class GetDepartment {
     return departments
   }
 
-  async getDepartmentById(departmentId: any) {
-    const department: Department | null = await departmentRepository.findById(departmentId)
+  async getDepartmentById(departmentId: number) {
+    const department: Department | null = await departmentRepository.findById(departmentId);
     return department
   }
 }
